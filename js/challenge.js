@@ -50,9 +50,12 @@ likebutton.addEventListener("click", function() {
 const pausebutton = document.getElementById("pause")
 
 function pause() {
-    clearInterval(interval())
+    clearInterval(1);
+    pausebutton.addEventListener("click", function() {
+        interval()
+    })
 }
 
 pausebutton.addEventListener("click", function() {
-    pause()
+    pause();
 })
