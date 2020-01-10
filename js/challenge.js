@@ -1,4 +1,11 @@
-const counter = document.getElementById("counter");
+const counter = document.getElementById("counter")
+let paused = false
+const upbutton = document.getElementById("plus")
+const downbutton = document.getElementById("minus")
+const likebutton = document.getElementById("heart")
+const pauseButton = document.getElementById("pause")
+
+
 
 function increment() {
     counter.innerText++
@@ -30,61 +37,72 @@ function createLike() {
 
 function interval() { setInterval(function() { increment() }, 1000) }
 
-
-
-const upbutton = document.getElementById("plus");
-
 function up() {
     upbutton.addEventListener("click", function() {
-        increment()
+        if (paused == false)
+            increment()
     })
 }
-
-
-const downbutton = document.getElementById("minus");
 
 function down() {
     downbutton.addEventListener("click", function() {
-        decrement()
+        if (paused == false)
+            decrement()
     })
 }
 
-const likebutton = document.getElementById("heart");
 
 function likes() {
     likebutton.addEventListener("click", function() {
-        createOrUpdateLikes()
+        if (paused == false)
+            createOrUpdateLikes()
     })
 }
 
-const pauseButton = document.getElementById("pause")
-pauseButton.addEventListener("click", function() { pause() });
+function startPause() {
+    pauseButton.addEventListener("click", function() { pause() })
+}
 
 
 function pause() {
+    paused = true
     clearInterval(1);
-    upbutton.removeEventListener("click", up());
-    downbutton.removeEventListener("click", function() { decrement() });
-    likebutton.removeEventListener("click", function() { createOrUpdateLikes() })
     pauseButton.addEventListener("click", function() { resume() });
     pauseButton.innerText = "resume"
 
 }
 
 function resume() {
+    paused = false
     interval()
     pauseButton.addEventListener("click", function() { pause() });
     pauseButton.innerText = "pause"
 
 }
 
+function addComment() {
+    let txt = document.getElementById('comment-input').value
+    newComment = document.createElement("p")
+    newComment.innerHTML = txt
+    document.getElementsByTagName('h3')[0].appendChild(newComment)
+}
+
+function disableSubmit() {
+    document.getElementById("submit").addEventListener("click", function(event) {
+        event.preventDefault();
+        addComment()
+    })
+}
 
 
 function start() {
     interval();
     up();
     down();
-    likes()
+    likes();
+    startPause();
+    disableSubmit();
 }
+
 
 document.addEventListener("DOMContentLoaded", function() { start() })
