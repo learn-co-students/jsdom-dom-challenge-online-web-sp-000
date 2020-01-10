@@ -48,18 +48,22 @@ likebutton.addEventListener("click", function() {
 })
 
 const pauseButton = document.getElementById("pause")
-pauseButton.addEventListener("click", function() {
-    pause()
-})
+pauseButton.addEventListener("click", function() { pause() });
+
 
 function pause() {
     clearInterval(1);
-    pauseButton.removeEventListener("click", function() { pause() });
+    upbutton.removeEventListener("click", function() { increment() });
+    downbutton.removeEventListener("click", function() { decrement() });
+    likebutton.removeEventListener("click", function() { createOrUpdateLikes() })
     pauseButton.addEventListener("click", function() { resume() });
-    upbutton.removeEventListener("click", function() { increment() })
+    pauseButton.innerText = "resume"
 
 }
 
 function resume() {
     interval()
+    pauseButton.addEventListener("click", function() { pause() });
+    pauseButton.innerText = "pause"
+
 }
