@@ -47,15 +47,19 @@ likebutton.addEventListener("click", function() {
     createOrUpdateLikes()
 })
 
-const pausebutton = document.getElementById("pause")
+const pauseButton = document.getElementById("pause")
+pauseButton.addEventListener("click", function() {
+    pause()
+})
 
 function pause() {
     clearInterval(1);
-    pausebutton.addEventListener("click", function() {
-        interval()
-    })
+    pauseButton.removeEventListener("click", function() { pause() });
+    pauseButton.addEventListener("click", function() { resume() });
+    upbutton.removeEventListener("click", function() { increment() })
+
 }
 
-pausebutton.addEventListener("click", function() {
-    pause();
-})
+function resume() {
+    interval()
+}
