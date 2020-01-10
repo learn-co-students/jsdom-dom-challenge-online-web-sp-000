@@ -30,22 +30,32 @@ function createLike() {
 
 function interval() { setInterval(function() { increment() }, 1000) }
 
-document.addEventListener("DOMContentLoaded", function() { interval() })
+
 
 const upbutton = document.getElementById("plus");
-upbutton.addEventListener("click", function() {
-    increment()
-})
+
+function up() {
+    upbutton.addEventListener("click", function() {
+        increment()
+    })
+}
+
 
 const downbutton = document.getElementById("minus");
-downbutton.addEventListener("click", function() {
-    decrement()
-})
+
+function down() {
+    downbutton.addEventListener("click", function() {
+        decrement()
+    })
+}
 
 const likebutton = document.getElementById("heart");
-likebutton.addEventListener("click", function() {
-    createOrUpdateLikes()
-})
+
+function likes() {
+    likebutton.addEventListener("click", function() {
+        createOrUpdateLikes()
+    })
+}
 
 const pauseButton = document.getElementById("pause")
 pauseButton.addEventListener("click", function() { pause() });
@@ -53,7 +63,7 @@ pauseButton.addEventListener("click", function() { pause() });
 
 function pause() {
     clearInterval(1);
-    upbutton.removeEventListener("click", function() { increment() });
+    upbutton.removeEventListener("click", up());
     downbutton.removeEventListener("click", function() { decrement() });
     likebutton.removeEventListener("click", function() { createOrUpdateLikes() })
     pauseButton.addEventListener("click", function() { resume() });
@@ -67,3 +77,14 @@ function resume() {
     pauseButton.innerText = "pause"
 
 }
+
+
+
+function start() {
+    interval();
+    up();
+    down();
+    likes()
+}
+
+document.addEventListener("DOMContentLoaded", function() { start() })
