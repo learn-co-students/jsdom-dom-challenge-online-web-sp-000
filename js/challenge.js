@@ -10,13 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     /// DOM Elements 
-    let minus = document.getElementById("-")
-    let plus = document.getElementById("+")
-    let love = document.getElementById("<3")
+    let minus = document.getElementById("minus")
+    let plus = document.getElementById("plus")
+    let love = document.getElementById("heart")
     let pause = document.getElementById("pause")
     let likes = document.querySelector(".likes")
 
-    let submitBtn = document.querySelector("#submit")
+    let submit = document.querySelector("#submit")
     let commentList = document.querySelector("#list")
     
     
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             plus.disabled = true;
             minus.disabled = true;
             love.disabled = true; 
-            submitBtn.disabled = true;
+            submit.disabled = true;
         }
         else {
             count = setInterval(function () {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             plus.disabled = false;
             minus.disabled = false;
             love.disabled = false; 
-            submitBtn.disabled = false;
+            submit.disabled = false;
         }
     });
     
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     // submit comments // button
-    submitBtn.addEventListener("click", function(e){
+    submit.addEventListener("click", function(e){
         e.preventDefault();
         let comment = document.querySelector("#comment-form > input[type=text]").value
         commentList.innerHTML += `<li>${comment}</li>`
