@@ -1,12 +1,14 @@
 const counter = document.getElementById('counter')
-//const likes = document.getElementsByClassName('likes')
+
+document.addEventListener('DOMContentLoaded', (event)=>{
 
 let num = parseInt(counter.innerText)
 
-let e = setInterval(function(){ 
-   num++
-   counter.innerText = num.toString() } , 1000)
 
+let timer = setInterval(function(){
+    num++
+   counter.innerText = num.toString() }, 1000)
+    
 
    document.getElementById('minus').addEventListener('click', function(event){ 
        counter.innerText--
@@ -16,47 +18,56 @@ let e = setInterval(function(){
        counter.innerText++
    })
 
-//function pause(){
-//    document.getElementById('pause').addEventListener('click', function(event){
-//        clearInterval(e)
-//        //let resume = document.getElementById('pause').innerHTML = 'resume'
-//        document.getElementById('pause').id = 'resume'
-//    })}
+              let btn = document.getElementById('pause')
+              btn.addEventListener('click', function(event){
+                if (btn.innerText == 'pause'){
+                    btn.innerText = 'resume'
+                    clearInterval(timer)
+                }
+                else if (btn.innerText == 'resume'){
+                    btn.innerText = 'pause'
+                    timer = setInterval(function(){
+                        num++
+                       counter.innerText = num.toString() }, 1000)
+                    
+                }
+              })
+     })
 
-//function resume(){
-//        document.getElementById('resume').addEventListener('click', function(event){
-//                //document.getElementById('resume').innerHTML = 'pause'
-//                document.getElementById('resume').id = 'pause'
-//                setInterval()
+     document.getElementById("comment-form").addEventListener("submit", function(event){
+      event.preventDefault()
+      let list = document.getElementById('list')
+
+    let comment = document.getElementById('comment-input').value 
     
-// })}
+    let newEle = document.createElement('LI')
 
-        if (document.getElementById('pause')){
-            document.getElementById('pause').addEventListener('click', function(event){
-                clearInterval(e)
-                let resume = document.getElementById('pause').innerHTML = 'resume'
-                document.getElementById('pause').id = 'resume'
-            })};
-        
-        
-        if (document.getElementById('resume')) {
-            document.getElementById('resume').addEventListener('click', function(event){
-                document.getElementById('resume').innerHTML = 'pause'
-                document.getElementById('resume').id = 'pause'
-                setInterval()
-     
- })};
-        
-   
-// let commentForm = document.getElementById('comment-form')
-// commentForm.addEventListener('submit', function(event){
-//     event.preventDefault()})
+    list.appendChild(newEle)
+    newEle.innerText = comment 
+    })
 
-//      let comment = document.getElementById('comment-input').value 
-//      let list = document.getElementById('list')
-//    //  let addComment = document.list.createElement('LI')
+    const likes = {}
 
-//     ele = list.createElement('LI')
-    
-//     ele.appendChild('comment')
-//})
+    let heart = document.getElementById('heart')
+
+    heart.addEventListener('click', function(event){
+      let number = counter.innerText
+      
+      if (Object.keys(likes).includes(`${number}`)){
+        likes[`${number}`] ++ ;
+      }
+      else {
+        likes[`${number}`] = 1;
+      }
+
+       let likeList = document.getElementsByTagName('ul')[0]
+       
+       let newTally = document.createElement('LI')
+  
+       likeList.appendChild(newTally)
+
+       newTally.innerText = `${number}` + " has " + `${likes[number]}` + " like(s) "
+
+    })
+ 
+
