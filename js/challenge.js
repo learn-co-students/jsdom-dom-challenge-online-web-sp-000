@@ -1,21 +1,29 @@
     
+document.addEventListener("DOMContentLoaded", startCounter)
+
+
+    var el = document.getElementById("counter");
+    var counter = parseInt(el.innerHTML)
+    var intervalId
+
     function startCounter() {
-        var el = document.getElementById("counter").innerHTML;
-        var counter = parseInt(el)
-        var intervalId = setInterval(function() {
+        intervalId = setInterval(function() {
+            counter++
             el.innerHTML = counter
-            counter++;
         }, 1000);
     }
 
-    document.addEventListener("DOMContentLoaded", startCounter) 
-
     function pauseCounter() {
-        //grab timer objects
-        //stops counter
-        //changes button text to "resume"
-        //disables all other buttons
+        clearInterval(intervalId) 
+        document.getElementById("pause").innerHTML = "resume"
+        document.getElementById("submit").disabled = true 
+        document.getElementById("plus").disabled = true  
+        document.getElementById("minus").disabled = true 
+        document.getElementById("heart").disabled = true 
     }
+
+    document.getElementById("pause").addEventListener("click", pauseCounter);
+
 
     function incrementCounter() {
         //onclick, counter increments by 1
