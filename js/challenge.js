@@ -1,18 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-    //on domcontentloaded event, run startCounter
     
-
     function startCounter() {
         var el = document.getElementById("counter").innerHTML;
         var counter = parseInt(el)
         var intervalId = setInterval(function() {
-            console.log(counter);
+            el.innerHTML = counter
             counter++;
         }, 1000);
-        //grab timer objects
-        // timer increments every second
     }
-}
+
+    document.addEventListener("DOMContentLoaded", startCounter) 
+
     function pauseCounter() {
         //grab timer objects
         //stops counter
