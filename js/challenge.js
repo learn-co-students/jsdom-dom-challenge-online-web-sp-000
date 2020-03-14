@@ -1,7 +1,6 @@
     
 document.addEventListener("DOMContentLoaded", startCounter)
 
-
     var el = document.getElementById("counter");
     var counter = parseInt(el.innerHTML)
     var pauseResume = document.getElementById("pause")
@@ -22,8 +21,6 @@ document.addEventListener("DOMContentLoaded", startCounter)
         document.getElementById("minus").disabled = true 
         document.getElementById("heart").disabled = true 
     }
-
-    pauseResume.addEventListener("click", decideCounter); //this + pauseCounter works to pause
     
     function decideCounter() {
         if (pauseResume.innertext == "resume") {
@@ -32,7 +29,12 @@ document.addEventListener("DOMContentLoaded", startCounter)
           pauseResume.addEventListener("click", pauseCounter)
      }
     } //this does not work (wrapped in a function with another eventlistener or not), but feels like it should!
-    
+    pauseResume.addEventListener("click", decideCounter); //this + pauseCounter works to pause
+
+
+
+
+
     function incrementCounter() {
         document.getElementById("plus").onclick = counter.value = ++counter;
         el.innerHTML = counter
@@ -50,9 +52,8 @@ document.addEventListener("DOMContentLoaded", startCounter)
         const likes = document.createElement('li')
         likes.innerHTML = `${counter} has been liked 1 time` 
         likesArea.appendChild(likes)
-    } //need to modify string for how many times liked
+    } //need to modify string for how many times liked: do I need to do an incrementer here?
     document.getElementById("heart").addEventListener("click", likeNumber)
-
 
     function leaveComment() {
         event.preventDefault();
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", startCounter)
         const comments = document.createElement('li')
         ul.appendChild(comments)
         comments.innerHTML = document.getElementById('comment-input').value
-    } //works in console, but not happening on submit- submit refreshes console --why???
-    document.getElementById("submit").addEventListener("submit", leaveComment)
+    }
+    document.getElementById("submit").addEventListener("click", leaveComment)
 
 
