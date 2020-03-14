@@ -70,12 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } 
     heartButton.addEventListener("click", likeNumber) 
 
-    //does like element exist? looks for like by id, if that element exists
-
-    //id of number that liked - if item id exists, change text
-    //if selector gets element, use and change, otherwise create new element, set text, set id 
-    //can count how many times a specific id shows up
-
     function leaveComment() {
         event.preventDefault();
         const commentArea = document.getElementById('list')
