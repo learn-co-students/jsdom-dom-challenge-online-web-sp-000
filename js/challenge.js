@@ -54,19 +54,27 @@ document.addEventListener("DOMContentLoaded", () => {
     minusButton.addEventListener("click", decrementCounter)
 
     function likeNumber() {
-        var likeCount
-        likeCount += 1
-        const likesArea = document.querySelector('ul')
-        const likes = document.createElement('li')
-        if(likeCount > 1) {
-           likes.innerHTML = `${counter} has been liked ${likeCount} times`
+        const li = document.getElementById(counter)
+        if(li) {
+            let likeCount = parseInt(li.dataset.likeCount, 10)
+            li.dataset.likeCount = likeCount + 1
+            li.innerHTML = `${counter} has been liked ${likeCount++} times`
+        } else {
+            const likesArea = document.querySelector('ul')
+            li = document.createElement('li')
+            li.id = counter
+            li.dataset.likeCount = 1 
+            li.innerHTML = `${counter} has been liked 1 time` 
+            likesArea.appendChild(li) 
         }
-        else {
-            likes.innerHTML = `${counter} has been liked 1 time`  
-        }
-        likesArea.appendChild(likes)
     } 
-    heartButton.addEventListener("click", likeNumber) //gonna need a screenshare to make this work!
+    heartButton.addEventListener("click", likeNumber) 
+
+    //does like element exist? looks for like by id, if that element exists
+
+    //id of number that liked - if item id exists, change text
+    //if selector gets element, use and change, otherwise create new element, set text, set id 
+    //can count how many times a specific id shows up
 
     function leaveComment() {
         event.preventDefault();
