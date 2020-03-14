@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", startCounter)
 
     var el = document.getElementById("counter");
     var counter = parseInt(el.innerHTML)
+    var pauseResume = document.getElementById("pause")
     var intervalId
 
     function startCounter() {
@@ -22,22 +23,46 @@ document.addEventListener("DOMContentLoaded", startCounter)
         document.getElementById("heart").disabled = true 
     }
 
-    document.getElementById("pause").addEventListener("click", pauseCounter);
-
-
+    pauseResume.addEventListener("click", decideCounter); //this + pauseCounter works to pause
+    
+    function decideCounter() {
+        if (pauseResume.innertext == "resume") {
+          pauseResume.addEventListener("click", startCounter)
+      } else if (pauseResume.innertext == "pause") {
+          pauseResume.addEventListener("click", pauseCounter)
+     }
+    } //this does not work (wrapped in a function with another eventlistener or not), but feels like it should!
+    
     function incrementCounter() {
-        //onclick, counter increments by 1
+        document.getElementById("plus").onclick = counter.value = ++counter;
+        el.innerHTML = counter
     }
+    document.getElementById("plus").addEventListener("click", incrementCounter)
 
     function decrementCounter() {
-        //onclick, counter decrements by 1
+        document.getElementById("minus").onclick = counter.value = --counter;
+        el.innerHTML = counter
     }
+    document.getElementById("minus").addEventListener("click", decrementCounter)
 
     function likeNumber() {
-        //onclick, add li to ul with "number has been liked _ time(s)"
-    }
+        const likesArea = document.querySelector('ul')
+        const likes = document.createElement('li')
+        likes.innerHTML = `${counter} has been liked 1 time` 
+        likesArea.appendChild(likes)
+    } //need to modify string for how many times liked
+    document.getElementById("heart").addEventListener("click", likeNumber)
+
 
     function leaveComment() {
-        //onsubmit, add text below "comments"
-    }
+        event.preventDefault();
+        const commentArea = document.getElementById('list')
+        const ul = document.createElement('ul')
+        commentArea.appendChild(ul)
+        const comments = document.createElement('li')
+        ul.appendChild(comments)
+        comments.innerHTML = document.getElementById('comment-input').value
+    } //works in console, but not happening on submit- submit refreshes console --why???
+    document.getElementById("submit").addEventListener("submit", leaveComment)
+
 
