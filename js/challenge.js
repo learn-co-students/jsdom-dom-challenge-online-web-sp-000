@@ -54,12 +54,19 @@ document.addEventListener("DOMContentLoaded", () => {
     minusButton.addEventListener("click", decrementCounter)
 
     function likeNumber() {
+        var likeCount
+        likeCount += 1
         const likesArea = document.querySelector('ul')
         const likes = document.createElement('li')
-        likes.innerHTML = `${counter} has been liked 1 time` 
+        if(likeCount > 1) {
+           likes.innerHTML = `${counter} has been liked ${likeCount} times`
+        }
+        else {
+            likes.innerHTML = `${counter} has been liked 1 time`  
+        }
         likesArea.appendChild(likes)
-    } //need to modify string for how many times liked: do I need to do an incrementer here?
-    heartButton.addEventListener("click", likeNumber)
+    } 
+    heartButton.addEventListener("click", likeNumber) //gonna need a screenshare to make this work!
 
     function leaveComment() {
         event.preventDefault();
