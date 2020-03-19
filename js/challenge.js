@@ -1,3 +1,6 @@
+// dom-challenge-online-web-sp-oo-challenge.js
+// js/challenge.js
+
 // variables
 
 let seconds = 0;
