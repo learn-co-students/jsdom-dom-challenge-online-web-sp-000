@@ -30,6 +30,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
+  <component name="SpringUtil" SPRING_PRE_LOADER_OPTION="true" RAKE_SPRING_PRE_LOADER_OPTION="true" RAILS_SPRING_PRE_LOADER_OPTION="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="daf8b00d-e88d-43d3-b2f7-7046870d238d" name="Default Changelist" comment="" />
@@ -37,7 +38,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1584577183182</updated>
-      <workItem from="1584577186053" duration="12018000" />
+      <workItem from="1584577186053" duration="15947000" />
     </task>
     <servers />
   </component>

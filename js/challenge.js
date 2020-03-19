@@ -1,8 +1,11 @@
-<!-- counter -->
 let seconds = 0;
 let counter = document.getElementById("counter");
-// let startCounter = setInterval(timer, 1000);
+const commentSubmit = document.querySelector('#submit')
+const commentList = document.querySelector('#list')
+const inputBox = document.querySelector('input')
 let paused = false;
+
+
 startCounter();
 function startCounter() {
     setInterval(timer, 1000);
@@ -50,38 +53,33 @@ elMinus.addEventListener('click', minus, false);
 // end of plus & minus buttons
 
 // like button
-let elHeart = document.getElementById('heart');
+const heart = document.querySelector('#heart');
+let likes = {};
+const likesList = document.querySelector('.likes')
 
 
-function like() {
-    let li = document.createElement('li');
-    let like = document.createTextNode(`${seconds} has been liked ${clickCounter()} time`);
-    li.appendChild(like);
-    let position = document.getElementsByTagName('ul')[0];
-    position.appendChild(li);
+function likeANumber(number) {
+    likes[number] = (likes[number] || 0) + 1;
+    if (likes[number] == 1){
+        const li = document.createElement('li')
+        li.id = number
+        li.innerText = `Number ${number} liked ${likes[number]} times.`
+        likesList.appendChild(li)
+    }
+    else {
+        const foundLi = document.getElementById(number)
+        foundLi.innerText = `Number ${number} liked ${likes[number]} times.`
+    }
 }
 
-function clickCounter() {
-    let value = parseInt(document.getElementById('heart').value, 10);
-    value = isNaN(value) ? 0 : value;
-    value++;
-    return value;
-}
-
-elHeart.addEventListener('click', like, false);
+heart.addEventListener('click', function(){likeANumber(seconds)});
 
 // end of likes
 
 //leave a comment
 
-let comment = document.getElementById('comment-input');
-let submit = document.getElementById('submit');
-
-function post() {
-    let p = document.createElement('p');
-    p.appendChild(comment);
-    let placement = document.getElementById('list');
-    placement.appendChild(p);
-}
-
-submit.addEventListener('click', post, false);
+commentSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    commentList.innerHTML += `<p>${inputBox.value}</p>`
+    inputBox.value = '';
+})
