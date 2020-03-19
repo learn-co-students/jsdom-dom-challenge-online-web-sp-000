@@ -1,12 +1,19 @@
+// variables
+
 let seconds = 0;
+let paused = false;
 let counter = document.getElementById("counter");
 const commentSubmit = document.querySelector('#submit')
 const commentList = document.querySelector('#list')
 const inputBox = document.querySelector('input')
-let paused = false;
+const plus = document.querySelector('#plus');
+const minus = document.querySelector('#minus');
+const heart = document.querySelector('#heart');
+let likes = {};
+const likesList = document.querySelector('.likes')
 
+// functions
 
-startCounter();
 function startCounter() {
     setInterval(timer, 1000);
 }
@@ -17,6 +24,7 @@ function timer() {
     counter.innerText = seconds;
 }
 // pause button
+
 function pause() {
     if (paused == false) {
         console.log("counter paused");
@@ -28,35 +36,7 @@ function pause() {
         paused = false;
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
-    let button = document.getElementById("pause");
-    button.addEventListener("click", pause);
-})
-// end of pause button code
-
-// plus & minus buttons
-
-let elPlus = document.getElementById('plus');
-let elMinus = document.getElementById('minus');
-
-function plus() {
-    seconds++;
-}
-
-function minus() {
-    seconds--;
-}
-
-elPlus.addEventListener('click', plus, false);
-elMinus.addEventListener('click', minus, false);
-
-// end of plus & minus buttons
-
-// like button
-const heart = document.querySelector('#heart');
-let likes = {};
-const likesList = document.querySelector('.likes')
-
+// heart
 
 function likeANumber(number) {
     likes[number] = (likes[number] || 0) + 1;
@@ -72,14 +52,33 @@ function likeANumber(number) {
     }
 }
 
-heart.addEventListener('click', function(){likeANumber(seconds)});
+function secondTimer(step) {
+    if(!paused) {
+        seconds += step;
+        counter.innerText = seconds;
+    }
+}
 
-// end of likes
+// event listeners
 
-//leave a comment
+plus.addEventListener('click', function(){secondTimer(1);});
+
+minus.addEventListener('click', function(){secondTimer(-1);});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("pause");
+    button.addEventListener("click", pause);
+})
 
 commentSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     commentList.innerHTML += `<p>${inputBox.value}</p>`
     inputBox.value = '';
 })
+
+heart.addEventListener('click', function(){likeANumber(seconds)});
+
+
+// start application
+
+startCounter();
