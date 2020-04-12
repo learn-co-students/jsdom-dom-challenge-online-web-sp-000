@@ -9,21 +9,21 @@
     6. You can add comments.
 */
 
-let counterIsPaused = false;
+let counterPaused = false;
 const counter = document.querySelector('#counter')
 
 setInterval(function(){
-    if(counterIsPaused == false){
+    if(counterPaused == false){
         counter.innerText++
     }
 }, 1000)
 
 let pause = document.querySelector("#pause")
 pause.addEventListener('click', function(){
-    if(counterIsPaused == false){
-        counterIsPaused = true
+    if(counterPaused == false){
+        counterPaused = true
     } else {
-        counterIsPaused = false
+        counterPaused = false
     }
 })
 
@@ -38,16 +38,15 @@ decrementCounter.addEventListener('click', function(){
 })
 
 let likes = {};
-
 let likeList = document.querySelector('.likes')
 
 let heart = document.querySelector('#heart')
 heart.addEventListener('click', function(){
-    let counterNumber = counter.innerText
-    if(likes[counterNumber] == undefined){
-        likes[counterNumber] = 1
+    let counterDisplay = counter.innerText
+    if(likes[counterDisplay] == undefined){
+        likes[counterDisplay] = 1
     } else {
-        likes[counterNumber]++
+        likes[counterDisplay]++
     }
 
     likeList.innerHTML = ""
