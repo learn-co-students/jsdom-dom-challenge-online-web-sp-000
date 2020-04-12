@@ -60,69 +60,13 @@ heart.addEventListener('click', function(){
     }
 })
 
+let comments = {};
+let commentsList = document.querySelector('.comments')
+commentsList.innerHTML = ""
+for (var key in comments) {
+    let comment = key
+    let addComment = document.createElement('li')
+    addComment.innerText = `${comment}`
+    addComment.append(addComment)
+}
 
-
-
-
-
-
-
-
-/*
-let counterIsPaused = false;
-let pause = document.querySelector('#pause')
-const counterA = document.querySelector('#counter')
-
-
-setCount(function() {
-    if (counterIsPaused == false) {
-        counter.innerText++
-    }
-}, 1000)
-
-
-pause.addEventListener('click', function(){
-    if (counterIsPaused === false) {
-        counterIsPaused = true
-    } else {
-        counterIsPaused = false
-    }
-})
-
-
-let incrementCounter = document.querySelector('#plus')
-let decrementCounter = document.querySelector('#minus')
-let like = document.querySelector('#heart')
-let likeDetail = document.querySelector('.likes')
-let likes = {};
-
-
-incrementCounter.addEventListener('click', function(){
-    counter.innerText = parseFloat(counter.innerText) + 1
-})
-
-decrementCounter.addEventListener('click', function() {
-    counter.innerText = parseFloat(counter.innerText) - 1
-})
-
-like.addEventListener('click', function(){
-    likeDetail.innerHTML = ""
-
-    for (like in likes ) {
-        let num = like
-        let totalLikes = likes[like]
-        let likeAction = document.createElement('li')
-        likeAction.innerText = `${number} has been liked ${totalLikes}`
-        likeDetail.append(likeAction)
-    }
-
-    let counterDisplay = counterA.innerText
-
-    if (likes[counterDisplay] == undefined) {
-        likes[counterDisplay] = 1
-    } else {
-        likes[counterDisplay] + 1
-    }
-})
-
-*/
