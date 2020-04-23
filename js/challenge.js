@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
 			let n = document.createElement("li");
 			let comments = document.getElementById("comments")
 			n.setAttribute("id", `${currentTime}`)
-			n.textContent = `You liked #${currentTime} ${likeCount} time.`
+			n.setAttribute("likes", 1)
+			n.textContent = `You liked #${currentTime} ${n.getAttribute("likes")} time.`
 			ul.appendChild(n)	
 		} else {
-			console.log(`${likeCount} before`)
-			likeCount += 1
-			console.log(likeCount)
-			entry.textContent = `You liked #${currentTime} ${likeCount} times.`
+			entry.setAttribute("likes", `${parseInt(entry.getAttribute("likes")) + 1}`)
+			entry.textContent = `You liked #${currentTime} ${entry.getAttribute("likes")} times.`
+			console.log(entry.getAttribute("likes"))
 		}
 	};
 
@@ -85,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		p.textContent = c.value
 
 		div.appendChild(p)
+
+		submit.reset();
 	});
 
 });
