@@ -3,41 +3,68 @@
   <meta charset="UTF-8">
   <title>Dom Challenge</title>
   <style>
-    #counter {
+    .counter {
       background-color: black;
       color: white;
-      display: table;
+      display: inline;
       padding: 10px;
+      margin: 1pc;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
     }
   </style>
+
 </head>
 <body>
   <h1>
     Welcome to the DOM Challenge
   </h1>
-  <h1 id='counter'>
-    0
-  </h1>
-  <button id='minus' > ➖ </button>
-  <button id='plus' > ➕ </button>
-  <button id='heart' > ❤️ </button>
-  <button id='pause' > pause </button>
+    <div id="counter-number">
+      <h1 id='counter' class="counter">
+        0
+      </h1>
+    </div>
+    <br> <br>
+    <div id="pause-play"  class="counter" style="display: inline;">
+      <button id='minus' > ➖ </button>
+      <button id='plus' > ➕ </button>
+      <button id='heart' > ❤️ </button>
+      <button id='pause' > pause </button>
+    </div>
 
   <ul class='likes'></ul>
 
   <div>
-    <h3>Comments</h3>
-    <div id='list' class='comments'></div>
-
     <h3>Leave a comment</h3>
 
-    <form id="comment-form" action="">
+    <form id="comment-form" action="#" method="post">
       <input type='text' name="comment" id="comment-input" cols="30" rows="10">
       </br>
       <button id='submit'>submit</button>
     </form>
 
+  <h3>Comments</h3>
+    <div id='list' class='comments'></div>
+    <div >
+      <table id="comments">
+        <tr>
+          <th>User</th>
+          <th>Comment</th>
+          <th>Date</th>
+        </tr>
+      </table>
+    </div>
   </div>
+
+
 
   <!-- <script src="js/index.min.js"></script> -->
   <script src="js/challenge.js"></script>
