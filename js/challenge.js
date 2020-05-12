@@ -10,6 +10,7 @@ let counter_element = document.getElementById("counter"),
     like_list = document.getElementsByClassName("likes")[0],
     playing = 1,
     interval = timer(),
+    like_count = {},
     times, number, new_like, number_like;
 
 function timer(){
@@ -64,17 +65,18 @@ pause_element.addEventListener("click", function(event){
 });
 
 heart_element.addEventListener("click", function(event){
+  let number = counter_element.innerText;
 
-  if (number == counter_element.innerText){
-    times = times + 1;
-    new_like.innerText = number_like.concat(` ${times} times.`);
+  if (like_count[number]){
+    like_count[number] = like_count[number] + 1;
+    let li = document.querySelector(`[data-number="${number}"]`);
+    li.innerHTML = `${number} has been liked ${like_count[number]}`;
     }
-  else if (number != counter_element.innerText) {
-    times = 1;
-    number = counter_element.innerText;
-    new_like = document.createElement("li");
+  else {
+    like_count[number] = 1;
+    let new_like = document.createElement("li");
+    new_like.dataset.number = number;
     new_like.innerText = `${number} has been like`;
-    number_like =  new_like.innerText
     like_list.appendChild(new_like);
   }
     });
