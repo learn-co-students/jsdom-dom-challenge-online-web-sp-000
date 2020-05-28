@@ -25,10 +25,26 @@ function updateCounterTime(value) {
   counterInt += value;
   counter.innerText = counterInt.toString();
 };
-//
-// document.addEventListener("DOMContentLoaded", () => {
-//   counter.setInterval(updateCounterTime(), 1000, 1);
-// })
+
+document.addEventListener("DOMContentLoaded", () => {
+  let timer = window.setInterval(updateCounterTime, 1000, 1);
+
+  // Pressing pause - disable all buttons
+  pause.addEventListener('click', function(event){
+    submit.disabled = !submit.disabled;
+    plus.disabled = !plus.disabled;
+    minus.disabled = !minus.disabled;
+    heart.disabled = !heart.disabled;
+    if (paused) {
+      pause.innerText = "pause";
+      timer = window.setInterval(updateCounterTime, 1000, 1);
+    } else {
+      pause.innerText = "resume";
+      window.clearInterval(timer);
+    }
+    paused = !paused;
+  });
+});
 
 minus.addEventListener('click', function(event){
   updateCounterTime(-1);
@@ -36,18 +52,4 @@ minus.addEventListener('click', function(event){
 
 plus.addEventListener('click', function(event){
   updateCounterTime(1);
-});
-
-// Pressing pause - disable all buttons
-pause.addEventListener('click', function(event){
-  submit.disabled = !submit.disabled;
-  plus.disabled = !plus.disabled;
-  minus.disabled = !minus.disabled;
-  heart.disabled = !heart.disabled;
-  if (paused) {
-    pause.innerText = "pause";
-  } else {
-    pause.innerText = "resume";
-  }
-  paused = !paused;
 });
