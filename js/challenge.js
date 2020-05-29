@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const minus = document.getElementById("minus");
     const pause = document.getElementById("pause");
     const heart = document.getElementById("heart");
+    const submit = document.getElementById("submit");
+    const form = document.getElementById("comment-form");
+    const commentInput = document.getElementById("comment-input");
+    const list = document.getElementById("list");
 
 
     function incrementCounter() {
@@ -14,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         counter.innerText = parseInt(counter.innerText) - 1;
     }
 
-    const incrementer = setInterval(incrementCounter, 1000);
+    let incrementer = setInterval(incrementCounter, 1000);
 
     plus.addEventListener('click', incrementCounter);
     minus.addEventListener('click', decrementCounter);
@@ -40,12 +44,31 @@ document.addEventListener("DOMContentLoaded", () => {
     pause.addEventListener('click', function() {
         if (incrementing === true) {
             clearInterval(incrementer);
+            plus.disabled = true;
+            minus.disabled = true;
+            heart.disabled = true;
+            submit.disabled = true;
+            pause.innerText = " resume ";
             incrementing = false;
         } else {
-            setInterval(incrementCounter, 1000);
-            incrementing = true
+            incrementer = setInterval(incrementCounter, 1000);
+            incrementer;
+            plus.disabled = false;
+            minus.disabled = false;
+            heart.disabled = false;
+            submit.disabled = false;
+            pause.innerText = " pause ";
+            incrementing = true;
         }
     });
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        let input = commentInput.value; 
+        const p = document.createElement("p");
+        p.innerText = input;
+        list.appendChild(p);
+    })
 });
 
 
