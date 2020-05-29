@@ -1,16 +1,35 @@
 //basic timer//
 
-var sec = 0;
-function pad ( val ) { return val > 9 ? val : "0" + val; }
-setInterval( function(){
-    document.getElementById("counter").innerHTML=pad(++sec);
-}, 1000);
+var Clock = {
+    totalSeconds: 0,
+  
+    start: function () {
+      var self = this;
+  
+      this.interval = setInterval(function () {
+        document.getElementById("counter").innerHTML= (self.totalSeconds += 1)
+        }, 1000);
+    },
+  
+    pause: function () {
+      clearInterval(this.interval);
+      delete this.interval;
+    },
+  
+    resume: function () {
+      if (!this.interval) this.start();
+    }
+  };
+  
+  Clock.start();
+  
+  document.getElementById("pause").click(function () { Clock.pause(); });
 
 // As a user, I can manually increment and decrement the counter using the plus and minus buttons.
 
 //As a user, I can 'like' an individual number of the counter. I should see count of the number of 'likes' associated with that number.
 
-//    As a user, I can pause the counter, which should
+//As a user, I can pause the counter, which should
 //pause the counter
 //disable all buttons except the pause button
 //the pause button should then show the text "resume."
