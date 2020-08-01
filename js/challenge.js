@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             
         if(newCount == dupArr[0] && dupArr.length == 1) {
-            console.log("in IF")
             list = document.createElement("li");
             listAttr = document.createAttribute("id");
             listAttr.value = "num-lists"
@@ -59,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector("ul.likes").appendChild(list); 
             dupArr = []
         } else {
-            console.log("in ELSE")
             listArray = document.querySelectorAll("li#num-lists")
             listArray.forEach(myFunction)
             function myFunction(item, index) {
@@ -85,20 +83,21 @@ document.addEventListener("DOMContentLoaded", function() {
         let paragraph = document.createElement("p");
         commentDiv.appendChild(paragraph)
         paragraph.innerText = newComment.value
-        commentForm.reset();
+        this.reset();
     })
 
     pauseButton.addEventListener("click", function() {
-        if (pauseButton.innerText == "pause") 
-            {   pauseButton.innerText = "resume";
+        if (this.innerText == "pause") 
+            {   this.innerText = "resume";
                 minusButton.disabled = true;
                 plusButton.disabled = true;
                 heartButton.disabled = true;
                 submitButton.disabled = true;
                 isPaused = true;
+                console.log(this)
             }
         else
-            {   pauseButton.innerText = "pause"; 
+            {   this.innerText = "pause"; 
                 minusButton.disabled = false;
                 plusButton.disabled = false;
                 heartButton.disabled = false;
