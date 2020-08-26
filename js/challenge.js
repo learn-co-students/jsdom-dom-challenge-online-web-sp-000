@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function counterIncreaseByOne() {
   let counterIncrement = document.getElementById("counter");
   let counterCount = parseInt(counterIncrement.innerText); //parseint takes the 0 in the counterIncrement and makes it into an integer
-  counterIncrement.innerText = counterCount += 1; // we set the counterCount to add 1
+  counterIncrement.innerText = counterCount += 1;
 }
 
 pause.addEventListener("click", (e) => {
