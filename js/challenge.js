@@ -1,8 +1,9 @@
 
 let time = 0;
+let second = 1
 
 function increment() {
-    time += 1;
+    time += second;
     document.querySelector("#counter").innerText = time;
 }
 
@@ -13,10 +14,17 @@ function backward() {
 
 let interval = setInterval(increment, 1000);
 
+
 const pause = document.getElementById('pause');
 
 pause.addEventListener('click', function(event) {
-    clearInterval(interval);
+     if (document.getElementById('pause').textContent === " pause ") {
+       second = 0;
+       document.getElementById('pause').textContent = " resume ";
+     } else {
+       second = 1;
+       document.getElementById('pause').textContent = " pause ";
+     }
   });
 
 const plus = document.getElementById('plus');
@@ -36,4 +44,14 @@ minus.addEventListener('click', function(event) {
     document.getElementById("list").innerHTML += document.getElementById("comment-input").value;
   });
 
+  const heart = document.getElementById('heart');
 
+  function addLike() {
+    const newLike = document.createElement("li");
+    newLike.innerText = `${time} has been liked`;
+    document.querySelector(".likes").appendChild(newLike);
+  };
+
+  heart.addEventListener('click', function(event) {
+      addLike();
+    });
