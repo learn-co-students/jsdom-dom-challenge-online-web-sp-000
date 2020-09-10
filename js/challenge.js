@@ -1,14 +1,15 @@
-// document.addEventListener("DOMContentLoaded", function(e) {
+//document.addEventListener("DOMContentLoaded", function(e) {
     
     let count = 0;
     const counter = document.getElementById('counter');
     const plus = document.getElementById("plus");
     const minus = document.getElementById("minus");
-    const heart = document.querySelector("heart");
+    const heart = document.getElementById("heart");
     const pause = document.getElementById("pause");
     let paused = false;
     let likeTracker = {};
-
+    let likes = document.getElementsByClassName('likes')[0];
+   
 
     function addButtonListeners() {
     plus.addEventListener('click', incrementCount);
@@ -22,13 +23,13 @@
     if (!likeTracker[count]) {
         likeTracker[count] = 1;
         let li = document.createElement('li');
-        li.innerText = `You have liked ${count} one time`;
         li.id = count;
+        li.innerText = `You have liked ${count} one time`;
         likes.appendChild(li);
     } else {
         likeTracker[count] += 1;
         let likedNum = document.getElementById(count);
-        likedNum.innerText = `You have liked ${count}${likeTracker[count]} times`;
+        likedNum.innerText = `You have liked ${count} ${likeTracker[count]} times`;
     }
     console.log("Likes: ", likeTracker);
     }
@@ -41,7 +42,6 @@
     } else {
         pause.innerText = 'Pause';
     }
-    console.log('Paused?', paused);
     }
 
     //counter functions
@@ -53,7 +53,7 @@
     if (!paused) {
         count++;
         counter.innerText = count;
-    }
+        }
     }
 
     function decrementCount() {
@@ -65,12 +65,32 @@
     // dispatch center to run all the functions we'll need for page to load...helps to prevent finding a var that hasn't been rendered/created yet
     tickingClock();
     addButtonListeners();
+    addSubmitListener();
     }
 
     function testClick() {
     console.log("i was clicked");
     }
 
-    document.addEventListener("DOMContentLoaded", init)
+    // comments vars & functions
+const form = document.getElementById("comment-form");
+const input = document.getElementById("comment-input");
+const comments = document.getElementById('list');
 
-// })
+function getFormData() {
+    console.log(input.value);
+    return input.value;
+}
+function addSubmitListener() {
+    form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addCommentToDom();
+    form.reset();
+    });
+}
+
+function addCommentToDom() {
+    let comment = document.createElement('li');
+    comment.innerText = getFormData();
+    comments.appendChild(comment);
+}
