@@ -1,39 +1,76 @@
-// need boolean to keep track of timer state
-let active = true;
-let sec = 0;
+// document.addEventListener("DOMContentLoaded", function(e) {
+    
+    let count = 0;
+    const counter = document.getElementById('counter');
+    const plus = document.getElementById("plus");
+    const minus = document.getElementById("minus");
+    const heart = document.querySelector("heart");
+    const pause = document.getElementById("pause");
+    let paused = false;
+    let likeTracker = {};
 
-window.addEventListener('DOMContentLoaded', (event) => {startTimer();
-})
 
-let timer = document.getElementById('counter').innerHTML;
-// main function
-function startTimer() {
-    if (active == true) {
-        setTimeout(() => {
-            sec++;
-            console.log(sec);
-        }, 1000); 
-        // keep repeating at pace of 1 second
-        
+    function addButtonListeners() {
+    plus.addEventListener('click', incrementCount);
+    minus.addEventListener('click', decrementCount);
+    heart.addEventListener('click', handleLikes);
+    pause.addEventListener('click', pauseClock);
     }
-}
 
-// function to change states (pause/resume) by clicking
-function changeState() {
-    if (active == false) {
-        active = true;
-        startTimer();
-        console.log("Timer has been started");
-        document.getElementById('pause').innerHTML = "Pause"
-        pause.addEventListener('pause', function(event) {
-            clearInterval();
-        });
+    // like number function
+    function handleLikes() {
+    if (!likeTracker[count]) {
+        likeTracker[count] = 1;
+        let li = document.createElement('li');
+        li.innerText = `You have liked ${count} one time`;
+        li.id = count;
+        likes.appendChild(li);
     } else {
-        active = false;
-        console.log("Timer has paused");
-        document.getElementById('pause').innerHTML = "Resume";
-        pause.addEventListener('pause', function(event) {
-            startTimer();
-        })
+        likeTracker[count] += 1;
+        let likedNum = document.getElementById(count);
+        likedNum.innerText = `You have liked ${count}${likeTracker[count]} times`;
     }
-}
+    console.log("Likes: ", likeTracker);
+    }
+
+    //pause function
+    function pauseClock() {
+    paused = !paused;
+    if (paused) {
+        pause.innerText = 'Resume';
+    } else {
+        pause.innerText = 'Pause';
+    }
+    console.log('Paused?', paused);
+    }
+
+    //counter functions
+    function tickingClock() {
+    setInterval(incrementCount, 1000);
+    }
+
+    function incrementCount() {
+    if (!paused) {
+        count++;
+        counter.innerText = count;
+    }
+    }
+
+    function decrementCount() {
+    count--;
+    counter.innerText = count;
+    }
+
+    function init() {
+    // dispatch center to run all the functions we'll need for page to load...helps to prevent finding a var that hasn't been rendered/created yet
+    tickingClock();
+    addButtonListeners();
+    }
+
+    function testClick() {
+    console.log("i was clicked");
+    }
+
+    document.addEventListener("DOMContentLoaded", init)
+
+// })
