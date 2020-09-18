@@ -1,9 +1,10 @@
-//let incrementer = null;
+let incrementer = null;
 
 
 document.addEventListener("DOMContentLoaded", function(e) {
     console.log('@@hello', "The DOM has loaded");
     incrementTimer();
+    myStopFunction();
 
 
 });
@@ -22,3 +23,14 @@ function incrementTimer(){
 
     console.log('@@end');
 }
+
+
+function pauseTimer(){
+    clearInterval(incrementer);
+}
+
+function myStopFunction(){
+    document.getElementById("pause").addEventListener("click", pauseTimer);
+}
+
+
