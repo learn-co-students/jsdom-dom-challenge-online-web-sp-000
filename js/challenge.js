@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
     console.log('@@hello', "The DOM has loaded");
     incrementTimer();
     myStopFunction();
+    resumeButton();
+    pauseButton();
     incrementByOne();
     decrementByOne();
 });
@@ -33,6 +35,24 @@ function myStopFunction(){
     document.getElementById("pause").addEventListener("click", pauseTimer);
 }
 
+function resumeButton(){
+    const pauseButton = document.getElementById("pause");
+    pauseButton.onclick = function (){pauseButton.innerText = "resume"};
+}
+
+
+function pauseButton(){
+    const resumeButton = document.getElementById("pause");
+
+    document.addEventListener("DOMContentLoaded", function(){
+        if (resumeButton.innerText === "resume"){
+            resumeButton.addEventListener("click", incrementTimer);
+            resumeButton.onclick = function (){resumeButton.innerText = "pause"};
+        }
+    });
+}
+
+
 function addOne(){
     const counter = document.getElementById('counter');
     counter.innerText = parseInt(counter.innerText) + 1;
@@ -50,3 +70,4 @@ function subtractOne(){
 function decrementByOne(){
     document.getElementById("minus").addEventListener("click", subtractOne);
 }
+
