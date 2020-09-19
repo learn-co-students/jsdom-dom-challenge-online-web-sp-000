@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     pauseButton();
     incrementByOne();
     decrementByOne();
+    submitComments()
 });
 
 
@@ -44,12 +45,10 @@ function resumeButton(){
 function pauseButton(){
     const resumeButton = document.getElementById("pause");
 
-    document.addEventListener("DOMContentLoaded", function(){
-        if (resumeButton.innerText === "resume"){
-            resumeButton.addEventListener("click", incrementTimer);
-            resumeButton.onclick = function (){resumeButton.innerText = "pause"};
-        }
-    });
+    if (resumeButton.innerText === "resume"){
+        resumeButton.onclick = function (){resumeButton.innerText = "pause"};
+    }
+
 }
 
 
@@ -71,3 +70,15 @@ function decrementByOne(){
     document.getElementById("minus").addEventListener("click", subtractOne);
 }
 
+function submitComments(){
+
+    const form = document.getElementById('comment-form');
+    form.onsubmit = submit;
+
+    function submit(event){
+        const newComment = document.getElementById("comment-input").value;
+        const node = document.createElement("LI");
+        document.getElementById("list").appendChild(node).innerHTML = newComment   
+        event.preventDefault();
+    }
+}
