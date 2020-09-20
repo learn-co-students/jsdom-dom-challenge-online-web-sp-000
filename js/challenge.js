@@ -1,19 +1,24 @@
 let incrementer = null;
-
 let likesCounter = 0;
+
+const counter = document.getElementById('counter');
 const likesNumber = document.createElement("h3");
+
+
 document.querySelector('ul.likes').appendChild(likesNumber);
 
 
-
 document.addEventListener("DOMContentLoaded", function(e) {
-    console.log('@@hello', "The DOM has loaded");
+    //console.log('@@hello', "The DOM has loaded");
     incrementTimer();
-    myStopFunction();
-    resumeButton();
-    pauseButton();
-    incrementByOne();
-    decrementByOne();
+
+    stopTimer();
+    
+    togglePauseButton();
+
+    userIncrementByOne();
+    userDecrementByOne();
+
     submitComments();
     incrementLikes();
 });
@@ -25,7 +30,6 @@ function incrementTimer(){
 
     incrementer = setInterval(
         function increment_by_one(){
-            const counter = document.getElementById('counter');
             counter.innerText = parseInt(counter.innerText) + 1;
         },
     1000);    
@@ -34,56 +38,59 @@ function incrementTimer(){
 }
 
 
-function pauseTimer(){
-    clearInterval(incrementer);
+function stopTimer(){
+    function stopIncrementing(){
+        clearInterval(incrementer);    
+    }
+    document.getElementById("pause").addEventListener("click", stopIncrementing);
 }
 
-function myStopFunction(){
-    document.getElementById("pause").addEventListener("click", pauseTimer);
-}
 
-function resumeButton(){
+function togglePauseButton(){
     const pauseButton = document.getElementById("pause");
-    pauseButton.onclick = function (){pauseButton.innerText = "resume"};
+
+    pauseButton.onclick = function (){
+
+        if (pauseButton.innerText === "pause"){
+            pauseButton.innerText = "resume";
+        }    
+        else if (pauseButton.innerText === "resume"){
+            pauseButton.innerText = "pause";
+            incrementTimer();
+        }        
+    }    
+
 }
 
 
-function pauseButton(){
-    const resumeButton = document.getElementById("pause");
+function userIncrementByOne(){
 
-    if (resumeButton.innerText === "resume"){
-        resumeButton.onclick = function (){resumeButton.innerText = "pause"};
+    function addOne(){
+        counter.innerText = parseInt(counter.innerText) + 1;
     }
 
-}
-
-
-function addOne(){
-    const counter = document.getElementById('counter');
-    counter.innerText = parseInt(counter.innerText) + 1;
-}
-
-function incrementByOne(){
     document.getElementById("plus").addEventListener("click", addOne);
 }
 
-function subtractOne(){
-    const counter = document.getElementById('counter');
-    counter.innerText = Math.max(0, parseInt(counter.innerText) - 1);
-}
 
-function decrementByOne(){
+function userDecrementByOne(){
+
+    function subtractOne(){
+        counter.innerText = Math.max(0, parseInt(counter.innerText) - 1);
+    }    
+
     document.getElementById("minus").addEventListener("click", subtractOne);
 }
 
 
-function likesCount(){
-    likesCounter = likesCounter + 1;
-    document.querySelector('.likes h3').innerText = `${likesCounter} Likes`;
-
-}
-
 function incrementLikes(){
+
+    function likesCount(){
+        likesCounter = likesCounter + 1;
+        document.querySelector('.likes h3').innerText = `${likesCounter} Likes`;
+
+    }    
+
     document.getElementById("heart").addEventListener("click", likesCount);
 }
 
