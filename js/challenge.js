@@ -1,5 +1,10 @@
 let incrementer = null;
 
+let likesCounter = 0;
+const likesNumber = document.createElement("h3");
+document.querySelector('ul.likes').appendChild(likesNumber);
+
+
 
 document.addEventListener("DOMContentLoaded", function(e) {
     console.log('@@hello', "The DOM has loaded");
@@ -9,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
     pauseButton();
     incrementByOne();
     decrementByOne();
-    submitComments()
+    submitComments();
+    incrementLikes();
 });
 
 
@@ -69,6 +75,18 @@ function subtractOne(){
 function decrementByOne(){
     document.getElementById("minus").addEventListener("click", subtractOne);
 }
+
+
+function likesCount(){
+    likesCounter = likesCounter + 1;
+    document.querySelector('.likes h3').innerText = `${likesCounter} Likes`;
+
+}
+
+function incrementLikes(){
+    document.getElementById("heart").addEventListener("click", likesCount);
+}
+
 
 function submitComments(){
 
