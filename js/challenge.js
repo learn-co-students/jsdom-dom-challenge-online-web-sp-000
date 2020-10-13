@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
    let ul = document.querySelector(".likes")
    let form = document.getElementById('comment-form')
    let buttonArray = [minus, plus, heart];
+   let likeCounter = [];
 
-   function myTimer() {
-       let i = parseInt(counter.textContent, 10) + 1;
-       counter.textContent = i.toString();
-   }
+    function myTimer() {
+        let x = parseInt(counter.textContent, 10) + 1;
+        counter.textContent = x.toString();
+    }
 
     function startTimer() {
         myVar = setInterval(myTimer, 1000);
@@ -52,9 +53,22 @@ document.addEventListener('DOMContentLoaded', function() {
    });
 
    heart.addEventListener("click", function(e) {
-       let li = document.createElement('li')
-       li.textContent = counter.textContent + ' has been liked 1 time'
-       ul.appendChild(li)
+        let li = document.createElement('li');
+        li.setAttribute('id', counter.textContent);
+
+        let index = parseInt(counter.textContent, 10);
+        likeCounter[index] = likeCounter[index] || 0;
+        likeCounter[index] = likeCounter[index] + 1;
+
+        li.textContent = counter.textContent + ` has been liked ${likeCounter[index]} times`;
+
+        let element = document.getElementById(counter.textContent)
+
+        if (element) {
+            ul.replaceChild(li, element);
+        } else { 
+            ul.appendChild(li);
+        }
    })
 
    form.addEventListener("submit", function(event) {
