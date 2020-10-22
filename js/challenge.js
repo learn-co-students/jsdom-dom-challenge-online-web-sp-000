@@ -21,13 +21,13 @@ const commentInput = document.querySelector("#comment-input");
 
 plus.addEventListener("click", countUp);
 minus.addEventListener("click", countDown);
-heart.addEventListener("click", addHeart);
+heart.addEventListener("click", addLike);
 
 
 commentForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const newComment = commentInput.value;
-    newParagraph = document.createElement('p');
+    const newParagraph = document.createElement('p');
     newParagraph.innerText = newComment;
     comments.appendChild(newParagraph);
 
@@ -48,20 +48,22 @@ function countDown() {
     }
 }
 
-function addHeart() {
-    const currentCount = counter.textContent;
-    newLi = document.createElement('li');
-    newLi.innerText = currentCount;
-    likes.appendChild(`${newLi} has been liked ${} time );
+function addLike() {
+    const currentCount = parseInt(counter.textContent, 10);
+    // const previousLike = document.querySelectorAll('.likes > li'); // longer code
+    const previousLike = Array.from( likes.children );
+    previousLike.find(previousLike => {
+        const previousLikeCount = parseInt(previousLike.textContent.slice(0, 1), 10);
+        return previousLikeCount === currentCount;
+    })
+
+    if (previousLike) {
+        const numberOfHearts = parseInt(previousLike.textContent.slice(-6, -5), 10);
+        // console.log(numberOfHearts);
+        previousLike.textContent = `${currentCount} has been liked ${numberOfHearts + 1} times`;
+    } else {
+        const newLi = document.createElement('li');
+        newLi.textContent = `${currentCount} has been liked 1 time`;
+        likes.appendChild(newLi);
+    }
 }
-
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     setInterval(function(){
-//         // add to the timer
-//         1000
-//     });
-
-
-
-// });
