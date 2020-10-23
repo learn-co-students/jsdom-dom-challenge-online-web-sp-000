@@ -8,21 +8,23 @@
 // When 'resume' is clicked, it should restart the counter and re-enable the buttons.
 // (x) As a user, I can leave comments on my gameplay, such as: "Wow, what a fun game this is."
 
+let timer;
+let isActive = true;
 const plus = document.querySelector("#plus");
 const minus = document.querySelector("#minus");
 const heart = document.querySelector("#heart");
 const likes = document.querySelector(".likes");
 const pause = document.querySelector("#pause");
 const counter = document.querySelector("#counter");
-const everySecondCounter = window.setInterval(keepCounting, 1000);
 const comments = document.querySelector("#list");
 const commentForm = document.querySelector("#comment-form");
 const commentInput = document.querySelector("#comment-input");
 
+document.addEventListener("DOMContentLoaded", startTimer);
 plus.addEventListener("click", countUp);
 minus.addEventListener("click", countDown);
 heart.addEventListener("click", addLike);
-
+pause.addEventListener("click", pauseOrResume);
 commentForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const newComment = commentInput.value;
@@ -33,8 +35,8 @@ commentForm.addEventListener("submit", function(e) {
     commentForm.reset();
 })
 
-function keepCounting() {
-    const currentCount = parseInt(counter.textContent++, 10);
+function startTimer() {
+    timer = setInterval(countUp, 1000);
 }
 
 function countUp() {
@@ -63,5 +65,19 @@ function addLike() {
         const newLi = document.createElement("li");
         newLi.textContent = `${currentCount} has been liked 1 time`;
         likes.append(newLi);
+    }
+}
+
+function pauseOrResume() {
+    if (isActive) {
+        clearInterval(timer);
+        isActive = false;
+        plus.disabled = true;
+        pause.innerHTML = "resume";
+    } else {
+        startTimer();
+        isActive = true;
+        plus.disabled = false;
+        pause.innerHTML = "pause";
     }
 }
