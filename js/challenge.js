@@ -52,7 +52,7 @@ function countDown() {
 function addLike() {
     const currentCount = parseInt(counter.textContent, 10);
     // const previousLikes = document.querySelectorAll('.likes > li'); // longer code
-    const previousLikes = Array.from( likes.children );  
+    const previousLikes = Array.from(likes.children);  
     const previousLike = previousLikes.find(previousLike => {
         const previousLikeCount = parseInt(previousLike.textContent.split(" ")[0], 10);
         return previousLikeCount === currentCount;
@@ -69,15 +69,19 @@ function addLike() {
 }
 
 function pauseOrResume() {
+    const allButtons = Array.from(document.querySelectorAll("button"));
+    const allButtonsButPause = allButtons.filter(button => button.id !== "pause");
+    console.log(allButtonsButPause);
+
     if (isActive) {
         clearInterval(timer);
         isActive = false;
-        plus.disabled = true;
+        allButtonsButPause.forEach(button => button.disabled = true);
         pause.innerHTML = "resume";
     } else {
         startTimer();
         isActive = true;
-        plus.disabled = false;
+        allButtonsButPause.forEach(button => button.disabled = false);
         pause.innerHTML = "pause";
     }
 }
