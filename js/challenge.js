@@ -52,7 +52,7 @@ function addLike() {
     // const previousLikes = document.querySelectorAll('.likes > li'); // longer code
     const previousLikes = Array.from( likes.children );  
     const previousLike = previousLikes.find(previousLike => {
-        const previousLikeCount = parseInt(previousLike.textContent.slice(0, 1), 10);
+        const previousLikeCount = parseInt(previousLike.textContent.split(" ")[0], 10);
         return previousLikeCount === currentCount;
     })
 
