@@ -50,16 +50,14 @@ function countDown() {
 function addLike() {
     const currentCount = parseInt(counter.textContent, 10);
     // const previousLikes = document.querySelectorAll('.likes > li'); // longer code
-    const previousLikes = Array.from( likes.children );
-    console.log(previousLikes);
-    previousLikes.find(previousLike => {
+    const previousLikes = Array.from( likes.children );  
+    const previousLike = previousLikes.find(previousLike => {
         const previousLikeCount = parseInt(previousLike.textContent.slice(0, 1), 10);
         return previousLikeCount === currentCount;
     })
 
     if (previousLike) {
-        const numberOfHearts = parseInt(previousLike.textContent.slice(-6, -5), 10);
-        // console.log(previousLike.textContent);
+        const numberOfHearts = parseInt(previousLike.textContent.split(" ").slice(-2)[0], 10);
         previousLike.textContent = `${currentCount} has been liked ${numberOfHearts + 1} times`;
     } else {
         const newLi = document.createElement("li");
