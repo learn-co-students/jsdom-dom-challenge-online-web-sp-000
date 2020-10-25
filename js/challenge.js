@@ -4,49 +4,69 @@ let minus = document.getElementById('minus')
 let heart = document.getElementById('heart')
 let pause = document.getElementById('pause')
 let counter = document.getElementById('counter');
+let likeCount;
 function addCounter() {
    counter.innerHTML = parseInt(counter.innerHTML, 10) + 1;
  };
  function minusCounter() {
    counter.innerHTML = parseInt(counter.innerHTML, 10) - 1;
  }
- function startCounter() {
-   count = setInterval(addCounter, 1000)
+ function increment() {
+   addCounter();
+   likeCount = 0;
  }
  function stopCounter() {
    clearTimeout(count)
  }
- document.addEventListener('DOMContentLoaded', (event) => { // starts counter when page loads
-     startCounter();
-     console.log("Counter Started")
- });
-// there will be an event that adds the counter +1 if plus is pressed, or -1 if minus is pressed
-plus.addEventListener("click", addCounter); // listens for plus being pressed
-minus.addEventListener("click", minusCounter); // listens for minus being pressed
-// when the 'like' button is pressed, it shows the amount of likes for the current number listed
-let likeCount = 0;
-heart.addEventListener("click", (event) => {
+ function likes() {
+   likeCount++;
+   const li = document.createElement("li");
+   const node = document.createTextNode(`${counter.textContent} has been liked ${likeCount} time(s).`);
+   const likes = document.querySelector('.likes');
+   const lastLike = likes.lastChild;
+   li.appendChild(node);
+   if(likeCount>1){
+     lastLike.replaceWith(li);
+   }else {
+     likes.appendChild(li);
+   }
+ };
+ function comment() {
+   event.preventDefault();
+   const list = document.getElementById('list');
+   const comment = document.getElementById('comment-input');
+   const p = document.createElement('p');
+   list.appendChild(p);
+   p.innerHTML = comment.value;
+   document.getElementById('comment-form').reset();
+ };
+ function activeButtons() {
+   plus.addEventListener("click", addCounter); // listens for plus being pressed
+   minus.addEventListener("click", minusCounter); // listens for minus being pressed
+   heart.addEventListener("click", likes);
+   document.addEventListener("submit", comment);
+ }
+ function deactiveButtons() {
+   plus.removeEventListener("click", addCounter); // listens for plus being pressed
+   minus.removeEventListener("click", minusCounter); // listens for minus being pressed
+   heart.removeEventListener("click", likes);
+   document.removeEventListener("submit", comment);
+ }
 
-});
-function addLike(num) {
-  const numLike_num =+ 1;
-}
-function likeCheck(num) {
-  if (likeCount >= 1) {
-
+ document.addEventListener('DOMContentLoaded', begin)
+ function begin() { // starts counter when page loads
+   count = setInterval(increment, 1000)
+   likeCount = 0;
+   activeButtons()
+ };
+pause.addEventListener("click", function() {
+  if (pause.innerHTML === " pause ") {
+    pause.innerHTML = "resume";
+    deactiveButtons();
+    stopCounter();
+  }else if (pause.innerHTML === "resume") {
+    pause.innerHTML = " pause ";
+    activeButtons();
+    begin()
   }
-}
-  // need to check each number as they run, see if they have likes, and display a message if they have likes
-  // figure out what event triggers when the h1(counter) is updated
-
-
-
-
-// listener for submit button
-// let text;
-// document.addEventListener("submit", (event) => {
-//   event.preventDefault();
-//   console.log(event);
-//   text = document.getElementById('comment-input')
-// });
-// text.value
+});
