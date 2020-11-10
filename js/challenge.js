@@ -75,10 +75,20 @@ function handleLikes() {
    heartButton.addEventListener("click", function (event) {
       // Determine number user liked and add it to likes
       let counterNum = parseInt(counter.innerText);
-      let like = document.createElement("li");
-      like.className = "like";
+
+     
+      let existingLike = document.querySelector(`.like${likeCount+1}`);
+      if (existingLike && counterNum === parseInt(like.innerText.split(" ")[0])) {
+         let numLikes = parseInt(existingLike.innerText.split(" ")[2])
+         numLikes += 1;
+         existingLike.innerText.split(" ")[0] = numLikes;
+      }
+      else {
+         let like = document.createElement("li");
+         like.className = `like${likeCount}`;
+         like.innerHTML = `${counterNum} liked ${likeCount} times.`;
+         likes.appendChild(like);
+      }
       likeCount += 1;
-      like.innerHTML = `${counterNum} liked ${likeCount} times.`;
-      likes.appendChild(like);
    })
 }
