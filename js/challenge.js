@@ -70,15 +70,15 @@ function timerCallback() {
 function handleLikes() {
    let likes = document.querySelector(".likes");
    let heartButton = document.querySelector("#heart");
-   let likeCount = 0;
+   let likeCount = 1;
    // Handle when user press like button
    heartButton.addEventListener("click", function (event) {
       // Determine number user liked and add it to likes
       let counterNum = parseInt(counter.innerText);
 
-     
-      let existingLike = document.querySelector(`.like${likeCount+1}`);
-      if (existingLike && counterNum === parseInt(like.innerText.split(" ")[0])) {
+      // Check if like number found and add to its likes if it exists
+      let existingLike = document.querySelector(`.like${counterNum}`);
+      if (existingLike && counterNum === parseInt(existingLike.innerText.split(" ")[0])) {
          let numLikes = parseInt(existingLike.innerText.split(" ")[2])
          numLikes += 1;
          existingLike.innerText.split(" ")[0] = numLikes;
