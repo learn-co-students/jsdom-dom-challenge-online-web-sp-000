@@ -87,7 +87,7 @@ function timerCallback() {
 function handleLikes() {
     let likes = document.querySelector(".likes");
     let heartButton = document.querySelector("#heart");
-    let likeCount = 1;
+    let likeCount = 0;
     let numLikes = 0;
     // Handle when user press like button
     heartButton.addEventListener("click", function(event) {
@@ -99,19 +99,20 @@ function handleLikes() {
         // debugger;
         let existingLike = document.querySelector(`.like${counterNum}`);
         if (!existingLike) {
+            likeCount = 0;
             let like = document.createElement("li");
             like.className = `like${counterNum}`;
             likeCount += 1;
             like.innerHTML = `${counterNum} liked ${likeCount} times.`;
             likes.appendChild(like);
-        }
-        if (existingLike) {
+        } else {
             // debugger;
             numLikes += 1;
             // let numLikes = parseInt(existingLike.innerText.split(" ")[2]);
             // numLikes += 1;
             // existingLike.innerText.split(" ")[0] = numLikes;
             existingLike.innerText.replace(existingLike.innerText.split(" ")[2], numLikes);
+            existingLike.innerHTML = `${counterNum} liked ${numLikes} times.`;
         }
     })
 }
