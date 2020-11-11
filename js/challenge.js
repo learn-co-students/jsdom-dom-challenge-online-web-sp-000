@@ -6,11 +6,21 @@
 //   * pause the counter
 //   * disable all buttons except the pause button
 //   * the pause button should then show the text "resume."
-// const counter = () => {
+const incrementCounter = () => {
+    let counter = document.querySelector("#counter");
+    let counterNum = Number(counter.innerText);
+    counterNum++;
+    return counterNum.toString();
+}
 
-//     }
-//   When 'resume' is clicked, it should restart the counter and re-enable the buttons.
-// 5. As a user, I can leave comments on my gameplay, such as: "Wow, what a fun game this is."
+const decrementCounter = () => {
+        let counter = document.querySelector("#counter");
+        let counterNum = Number(counter.innerText);
+        counterNum--;
+        return counterNum.toString();
+    }
+    //   When 'resume' is clicked, it should restart the counter and re-enable the buttons.
+    // 5. As a user, I can leave comments on my gameplay, such as: "Wow, what a fun game this is."
 document.addEventListener("DOMContentLoaded", function() {
     runTimer();
     adjustTimer();
@@ -18,29 +28,31 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function adjustTimer() {
-
+    let counter = document.querySelector("#counter");
     let minusButton = document.querySelector("#minus");
     let plusButton = document.querySelector("#plus");
 
     plusButton.addEventListener("click", function(event) {
-        let counter = document.querySelector("#counter");
-        let counterNum = Number(counter.innerText);
+        //   let counter = document.querySelector("#counter");
+        //   let counterNum = Number(counter.innerText);
         //   debugger;
-        counterNum++;
+        //   counterNum++;
         // Increment timer when 0 or greater
         // console.log(event.target);
-        counter.innerText = counterNum.toString();
+        counter.innerText = incrementCounter();
+        //   debugger;
     })
 
     // Toggle minus button on timer
     minusButton.addEventListener("click", function(event) {
-        let counter = document.querySelector("#counter");
-        let counterNum = Number(counter.innerText);
+        //   debugger;
+        //   let counter = document.querySelector("#counter");
+        //   let counterNum = Number(counter.innerText);
         // Decrement counter when greater than 0
-        if (counterNum > 0) {
-            counterNum--;
+        if (Number(decrementCounter()) > 0) {
+            // counterNum--;
             // console.log(event.target);
-            counter.innerText = counterNum.toString();
+            counter.innerText = decrementCounter();
         }
     })
 }
