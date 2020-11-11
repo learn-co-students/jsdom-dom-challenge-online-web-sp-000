@@ -88,6 +88,7 @@ function handleLikes() {
     let likes = document.querySelector(".likes");
     let heartButton = document.querySelector("#heart");
     let likeCount = 1;
+    let numLikes = 0;
     // Handle when user press like button
     heartButton.addEventListener("click", function(event) {
         // Determine number user liked and add it to likes
@@ -95,17 +96,22 @@ function handleLikes() {
         //   debugger;
 
         // Check if like number found and add to its likes if it exists
+        // debugger;
         let existingLike = document.querySelector(`.like${counterNum}`);
-        if (existingLike && counterNum === parseInt(existingLike.innerText.split(" ")[0])) {
-            let numLikes = parseInt(existingLike.innerText.split(" ")[2])
-            numLikes += 1;
-            existingLike.innerText.split(" ")[0] = numLikes;
-        } else {
+        if (!existingLike) {
             let like = document.createElement("li");
-            like.className = `like${likeCount}`;
+            like.className = `like${counterNum}`;
+            likeCount += 1;
             like.innerHTML = `${counterNum} liked ${likeCount} times.`;
             likes.appendChild(like);
         }
-        likeCount += 1;
+        if (existingLike) {
+            // debugger;
+            numLikes += 1;
+            // let numLikes = parseInt(existingLike.innerText.split(" ")[2]);
+            // numLikes += 1;
+            // existingLike.innerText.split(" ")[0] = numLikes;
+            existingLike.innerText.replace(existingLike.innerText.split(" ")[2], numLikes);
+        }
     })
 }
