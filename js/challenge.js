@@ -1,11 +1,3 @@
-// 1. As a user, I should see the timer increment every second once the page has loaded.
-// 2. As a user, I can manually increment and decrement the counter using the plus and minus buttons.
-// 3. As a user, I can 'like' an individual number of the counter. I should see count of the number of 'likes' associated with that number.
-// 4. As a user, I can pause the counter, which should 
-
-//   * pause the counter
-//   * disable all buttons except the pause button
-//   * the pause button should then show the text "resume."
 const incrementCounter = () => {
     let counter = document.querySelector("#counter");
     let counterNum = Number(counter.innerText);
@@ -19,16 +11,30 @@ const decrementCounter = () => {
     counterNum--;
     return counterNum.toString();
 }
+
+const disableButtons = () => {
+    document.querySelector("#minus").disabled = true;
+    document.querySelector("#plus").disabled = true;
+    document.querySelector("#heart").disabled = true;
+    document.querySelector("#submit").disabled = true;
+}
+
+const enableButtons = () => {
+    document.querySelector("#minus").disabled = false;
+    document.querySelector("#plus").disabled = false;
+    document.querySelector("#heart").disabled = false;
+    document.querySelector("#submit").disabled = false;
+}
+
 const pause = (intervalId) => {
     let pauseButton = document.querySelector("#pause");
     let isPaused = false;
+
     // Stop timer when pause button clicked
     if (intervalId) {
         pauseButton.addEventListener("click", function(event) {
             event.preventDefault();
-            document.querySelector("#minus").disabled = true;
-            document.querySelector("#plus").disabled = true;
-            document.querySelector("#heart").disabled = true;
+            disableButtons();
             event.target.innerText = "resume";
             clearInterval(intervalId);
             resume(pauseButton);
@@ -37,18 +43,17 @@ const pause = (intervalId) => {
 }
 
 const resume = (pauseButton) => {
+
+    // Resume timer when pause button clicked again
     pauseButton.addEventListener("click", function(event) { 
         event.preventDefault();
-        document.querySelector("#minus").disabled = false;
-        document.querySelector("#plus").disabled = false;
-        document.querySelector("#heart").disabled = false;
+        enableButtons();
         event.target.innerText = "pause";
         let intervalId = window.setInterval(timerCallback, 1000);
         pause(intervalId);
     }, false)
 }
-    //   When 'resume' is clicked, it should restart the counter and re-enable the buttons.
-    // 5. As a user, I can leave comments on my gameplay, such as: "Wow, what a fun game this is."
+
 document.addEventListener("DOMContentLoaded", function() {
     runTimer();
     adjustTimer();
@@ -61,26 +66,14 @@ function adjustTimer() {
     let minusButton = document.querySelector("#minus");
     let plusButton = document.querySelector("#plus");
 
+    // Toggle plus button on timer
     plusButton.addEventListener("click", function(event) {
-        //   let counter = document.querySelector("#counter");
-        //   let counterNum = Number(counter.innerText);
-        //   debugger;
-        //   counterNum++;
-        // Increment timer when 0 or greater
-        // console.log(event.target);
         counter.innerText = incrementCounter();
-        //   debugger;
     })
 
     // Toggle minus button on timer
     minusButton.addEventListener("click", function(event) {
-        //   debugger;
-        //   let counter = document.querySelector("#counter");
-        //   let counterNum = Number(counter.innerText);
-        // Decrement counter when greater than 0
         if (Number(decrementCounter()) > 0) {
-            // counterNum--;
-            // console.log(event.target);
             counter.innerText = decrementCounter();
         }
     })
@@ -90,14 +83,6 @@ function runTimer() {
     let intervalId = window.setInterval(timerCallback, 1000);
     pause(intervalId);
 }
-
-// function stopTimer() {
-//     let timeoutId = setTimeout(stop, 3000);
-// }
-
-// function stop() {
-
-// }
 
 function timerCallback() {
     let counter = document.querySelector("#counter");
@@ -111,28 +96,24 @@ function handleLikes() {
     let heartButton = document.querySelector("#heart");
     let likeCount = 0;
     let numLikes = 0;
+
     // Handle when user press like button
     heartButton.addEventListener("click", function(event) {
+
         // Determine number user liked and add it to likes
         let counterNum = parseInt(counter.innerText);
-        //   debugger;
 
         // Check if like number found and add to its likes if it exists
-        // debugger;
         let existingLike = document.querySelector(`.like${counterNum}`);
         if (!existingLike) {
-            // debugger;
+            likeCount = 0;
             let like = document.createElement("li");
             like.className = `like${counterNum}`;
             likeCount += 1;
             like.innerHTML = `${counterNum} liked ${likeCount} times.`;
             likes.appendChild(like);
         } else {
-            // debugger;
             numLikes += 1;
-            // let numLikes = parseInt(existingLike.innerText.split(" ")[2]);
-            // numLikes += 1;
-            // existingLike.innerText.split(" ")[0] = numLikes;
             existingLike.innerText.replace(existingLike.innerText.split(" ")[2], numLikes);
             existingLike.innerHTML = `${counterNum} liked ${numLikes} times.`;
         }
@@ -143,6 +124,8 @@ function handleComments() {
     let commentList = document.querySelector(".comments");
     let commentInput = document.querySelector("#comment-input");
     let submitButton = document.querySelector("#submit");
+
+    // Add comments to comment section when user submits input
     submitButton.addEventListener("click", function (event) {
         event.preventDefault();
         const userComment = document.createElement("p");
