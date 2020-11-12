@@ -46,8 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         x.innerText = "resume"
     }else {
         x.innerText = "pause"
-        handle 
-    
+        handle=setInterval(printTime, 1000)    
     }
 
   })
@@ -57,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let commentInput = document.getElementById("comment-input").value
       let commentList =document.getElementById("list")
       let li = document.createElement("li")
-      li.innerHTML = "<button>whatever</button>"
+      li.innerHTML = commentInput
       commentList.appendChild(li)
 
       // let ul = document.createElement("ul")
