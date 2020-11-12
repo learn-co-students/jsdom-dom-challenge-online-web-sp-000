@@ -145,10 +145,9 @@ function handleComments() {
     let submitButton = document.querySelector("#submit");
     submitButton.addEventListener("click", function (event) {
         event.preventDefault();
-        let userComment = document.createElement("p");
+        const userComment = document.createElement("p");
         userComment.className = "comment";
-        debugger
-        userComment.innerHTML = commentInput.innerHTML;
+        userComment.innerHTML = commentInput.value;
         commentList.appendChild(userComment);
     })
 }
