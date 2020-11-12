@@ -14,17 +14,46 @@ const incrementCounter = () => {
 }
 
 const decrementCounter = () => {
-        let counter = document.querySelector("#counter");
-        let counterNum = Number(counter.innerText);
-        counterNum--;
-        return counterNum.toString();
+    let counter = document.querySelector("#counter");
+    let counterNum = Number(counter.innerText);
+    counterNum--;
+    return counterNum.toString();
+}
+const pause = (intervalId) => {
+    let pauseButton = document.querySelector("#pause");
+    let isPaused = false;
+    // Stop timer when pause button clicked
+    if (intervalId) {
+        pauseButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            document.querySelector("#minus").disabled = true;
+            document.querySelector("#plus").disabled = true;
+            document.querySelector("#heart").disabled = true;
+            event.target.innerText = "resume";
+            clearInterval(intervalId);
+            resume(pauseButton);
+        }, false)
     }
+}
+
+const resume = (pauseButton) => {
+    pauseButton.addEventListener("click", function(event) { 
+        event.preventDefault();
+        document.querySelector("#minus").disabled = false;
+        document.querySelector("#plus").disabled = false;
+        document.querySelector("#heart").disabled = false;
+        event.target.innerText = "pause";
+        let intervalId = window.setInterval(timerCallback, 1000);
+        pause(intervalId);
+    }, false)
+}
     //   When 'resume' is clicked, it should restart the counter and re-enable the buttons.
     // 5. As a user, I can leave comments on my gameplay, such as: "Wow, what a fun game this is."
 document.addEventListener("DOMContentLoaded", function() {
     runTimer();
     adjustTimer();
     handleLikes();
+    handleComments();
 });
 
 function adjustTimer() {
@@ -58,24 +87,17 @@ function adjustTimer() {
 }
 
 function runTimer() {
-    let isPaused = false;
     let intervalId = window.setInterval(timerCallback, 1000);
-    let pause = document.querySelector("#pause");
-    // Stop timer when pause button clicked
-    pause.addEventListener("click", function(event) {
-        event.preventDefault();
-        clearInterval(intervalId);
-        isPaused = true;
-    })
+    pause(intervalId);
 }
 
-function stopTimer() {
-    let timeoutId = setTimeout(stop, 3000);
-}
+// function stopTimer() {
+//     let timeoutId = setTimeout(stop, 3000);
+// }
 
-function stop() {
+// function stop() {
 
-}
+// }
 
 function timerCallback() {
     let counter = document.querySelector("#counter");
@@ -99,7 +121,7 @@ function handleLikes() {
         // debugger;
         let existingLike = document.querySelector(`.like${counterNum}`);
         if (!existingLike) {
-            likeCount = 0;
+            // debugger;
             let like = document.createElement("li");
             like.className = `like${counterNum}`;
             likeCount += 1;
@@ -114,5 +136,19 @@ function handleLikes() {
             existingLike.innerText.replace(existingLike.innerText.split(" ")[2], numLikes);
             existingLike.innerHTML = `${counterNum} liked ${numLikes} times.`;
         }
+    })
+}
+
+function handleComments() {
+    let commentList = document.querySelector(".comments");
+    let commentInput = document.querySelector("#comment-input");
+    let submitButton = document.querySelector("#submit");
+    submitButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        let userComment = document.createElement("p");
+        userComment.className = "comment";
+        debugger
+        userComment.innerHTML = commentInput.innerHTML;
+        commentList.appendChild(userComment);
     })
 }
