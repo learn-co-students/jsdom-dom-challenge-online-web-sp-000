@@ -4,6 +4,10 @@ let subtractCount = document.getElementById("minus");
 let pause = document.getElementById("pause");
 let clock = setInterval(countUp, 1000);
 let likeButton = document.getElementById("heart");
+let commentForm = document.getElementById("comment-form");
+let likes = document.querySelector(".likes");
+let likeLog = {};
+
 
 document.addEventListener('DOMContentLoaded', (e) => {
     console.log('DOM fully loaded and parsed');
@@ -23,6 +27,7 @@ function pauseCount() {
     plus.disabled = true;
     minus.disabled = true;
     heart.disabled = true;
+    submit.disabled = true;
 }
 
 function resumeCount() {
@@ -31,6 +36,7 @@ function resumeCount() {
     plus.disabled = false;   
     minus.disabled = false;
     heart.disabled = false;
+    submit.disabled = false;
 }
 
 addCount.addEventListener('click', (e) => {
@@ -43,10 +49,37 @@ subtractCount.addEventListener('click', (e) => {
     console.log('subtractOne');
 });
 
+likeButton.addEventListener('click', (e) => {
+    let y = document.createElement("LI"); 
+    console.log(counter.innerHTML);
+    // console.log(likeLog[counter.innerHTML]);
+    // console.log(likeLog[counter.innerHTML]).value;
+
+
+    likeLog.set(counter.innerHTML, 0);
+    console.log(likeLog);
+
+    y.innerHTML = `${counter.innerHTML} has been liked 1 time`;
+    likes.append(y);
+    
+    // let comment = document.getElementById('comment-input').value;
+    // let x  = document.createElement("LI");
+    // x.innerHTML = comment;
+    // list.append(x);
+});
+
 pause.addEventListener('click', (e) => {
     if (pause.innerText == "pause") {
         pauseCount();
     } else {
         resumeCount();
     }
+});
+
+commentForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let comment = document.getElementById('comment-input').value;
+    let x  = document.createElement("LI");
+    x.innerHTML = comment;
+    list.append(x);
 });
