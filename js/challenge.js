@@ -1,12 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let myVar 
-
-    function myFunction(){
-        myVar = setTimeout(start(), 5000);
-    }
-
-    myFunction();
-    //setTimeout(start, 5000);
 
     let i = 0;
     const num = document.getElementById('counter');
@@ -16,10 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const likes = document.querySelector(".likes");
     const pause = document.querySelector("#pause");
 
-
-    function start() {
-        setInterval(increase, 1000);
-    }
+    let timer = setInterval(increase, 1000);
 
     function increase() {
         if (i < 1000) {
@@ -63,22 +52,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function myPauseFunction() {
         pause.addEventListener("click", () => {
-            //event.preventDefault();
-            
+           
+            console.log("im here")
 
             if (pause.innerText === "pause") {
-                clearTimeout(myVar); //have tried num
+                console.log("im here too")
+                clearInterval(timer)
+                pause.innerText = "resume"
                 
             }
             else if (pause.innerText != "pause") {
                 setInterval(increase, 1000);
+                pause.innerText = "pause"
             } 
     
-            //pause.innerText = "resume"
-    
-            //if (pause.innerText == "resume") {
-               //start();
-            //}
         });
     }
     myPauseFunction();
