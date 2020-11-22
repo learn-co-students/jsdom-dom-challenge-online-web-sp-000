@@ -6,7 +6,7 @@ let clock = setInterval(countUp, 1000);
 let likeButton = document.getElementById("heart");
 let commentForm = document.getElementById("comment-form");
 let likes = document.querySelector(".likes");
-let likeLog = {};
+var likeLog = {};
 
 
 document.addEventListener('DOMContentLoaded', (e) => {
@@ -51,21 +51,17 @@ subtractCount.addEventListener('click', (e) => {
 
 likeButton.addEventListener('click', (e) => {
     let y = document.createElement("LI"); 
-    console.log(counter.innerHTML);
-    // console.log(likeLog[counter.innerHTML]);
-    // console.log(likeLog[counter.innerHTML]).value;
+    let keyyy = parseInt(counter.innerHTML);    //hash Key as counter
+    let valueee = 0;
 
-
-    likeLog.set(counter.innerHTML, 0);
-    console.log(likeLog);
-
-    y.innerHTML = `${counter.innerHTML} has been liked 1 time`;
+    if (likeLog[keyyy] == undefined) {
+        likeLog[keyyy] = 1;
+    } else {
+        valueee = likeLog[keyyy];               //attempt to grab value of hash[Key] 
+        likeLog[keyyy] = valueee + 1;    
+    }
+    y.innerHTML = `${counter.innerHTML} has been liked ${likeLog[keyyy]} time`;
     likes.append(y);
-    
-    // let comment = document.getElementById('comment-input').value;
-    // let x  = document.createElement("LI");
-    // x.innerHTML = comment;
-    // list.append(x);
 });
 
 pause.addEventListener('click', (e) => {
