@@ -1,3 +1,4 @@
+//not my code
 document.addEventListener("DOMContentLoaded", function() {
     startTimer()
 
