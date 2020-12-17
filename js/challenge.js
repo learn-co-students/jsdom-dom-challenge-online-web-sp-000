@@ -5,13 +5,14 @@
   const heart = document.querySelector('#heart');
   const pause = document.querySelector('#pause');
 
-  const likes = document.querySelector('ul');
+  const likes = document.querySelector('.likes');
 
   const comments = document.querySelector('#list');
   const commentForm = document.querySelector('#comment-form');
 
   minus.addEventListener('click', decreaseCounter);
   plus.addEventListener('click', increaseCounter);
+  heart.addEventListener('click', addLike);
   commentForm.addEventListener('submit', displayComment);
  
   function decreaseCounter() {
@@ -27,7 +28,15 @@
   function increaseCounter() {
     const currentNum = parseInt(counter.textContent);
     counter.textContent = `${currentNum + 1 }`;
-}
+  }
+
+  function addLike() {
+    const currentNum = parseInt(counter.textContent);
+    
+    const addLike = document.createElement('li');
+    addLike.textContent = `${currentNum} has been liked # times`;
+    likes.append(addLike);
+  }
 
   function displayComment(event) {
       //preventing the event from refreshing/redirecting the page since we are in a form w
@@ -39,7 +48,7 @@
     const commentText = commentFormData.get('comment');
 
     //need to create a p tag to put the value of the comment in
-    const comment = document.createElement('p')
+    const comment = document.createElement('p');
     //assigning the value 
     comment.textContent = commentText; 
     //getting the list, appending to now add the p tag with the comment inside
@@ -47,4 +56,6 @@
     //reset form to remove the previous comment from form. 
     event.target.reset();
   }
+
+  
 
