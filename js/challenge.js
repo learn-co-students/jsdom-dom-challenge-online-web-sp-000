@@ -32,7 +32,13 @@
 
   function addLike() {
     const currentNum = parseInt(counter.textContent);
-    
+        //select all of the li's that are direct children of the likes ul
+            // this returns a NodeList[]
+        // const numOfLikes = document.querySelectorAll(".likes > li") 
+    //this returns a HTMLCollection[] ....can also find all properties of a given tag by going to console in browswer and type something like this
+    //console.dir(document.querySelector(".likes")). Click the arrow and it will open the directory to show all properties of the element 
+    const numOfLikes = likes.children
+    console.log(numOfLikes)
     const addLike = document.createElement('li');
     addLike.textContent = `${currentNum} has been liked # times`;
     likes.append(addLike);
