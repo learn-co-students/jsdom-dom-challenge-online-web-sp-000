@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // heart button functionality ---------------------------------------
 
   let heartButton = document.getElementById('heart')
-  let heartList = document.getElementsByClassName('likes')
+  let heartList = document.getElementsByClassName('likes')[0]
   let numberOfLikes = 0
 
   heartButton.addEventListener('click', function() {
