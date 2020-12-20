@@ -40,8 +40,11 @@
     //this returns a HTMLCollection[] ....can also find all properties of a given tag by going to console in browswer and type something like this
     //console.dir(document.querySelector(".likes")). Click the arrow and it will open the directory to show all properties of the element 
     //Array.from takes something that looks like an array and makes it one. Since likes.children is an HTML collection this is necessary
-    const numOfLikes = Array.from ( likes.children );
-    numOfLikes.find
+    const allNumAlreadyLiked = Array.from ( likes.children );
+    // const numOfTimesLiked = allNumAlreadyLiked.find(numOfTimesLiked {
+    //   const numOfTimesLikedCount = parseInt(numOfTimesLiked.textContent.slice(0, 1))
+    //   return numOfTimesLikedCount === currentNum
+    // })
 
     const addLike = document.createElement('li');
     addLike.textContent = `${currentNum} has been liked # times`;
