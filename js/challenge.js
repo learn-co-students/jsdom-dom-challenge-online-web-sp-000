@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let commentInput = document.getElementById('comment-input');
 
   commentForm.addEventListener('submit', displayComment);
-  
+
   function displayComment(submit) {
     submit.preventDefault();
         const paragraphTag = document.createElement("p");
