@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
       return `${counterValue} - ${numberOfLikes} Likes ❤️`;
     }
   }
+  
   // comment functionality
 
   let commentList = document.getElementById('list');
