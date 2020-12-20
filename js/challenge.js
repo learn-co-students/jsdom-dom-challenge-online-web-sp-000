@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   
-  //timer functionality -------------------------------------------------------
+  // timer functionality -------------------------------------------------------
 
   startTimer()
 
@@ -76,6 +76,20 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       return `${counterValue} - ${numberOfLikes} Likes ❤️`;
     }
+  }
+  // comment functionality
+
+  let commentList = document.getElementById('list');
+  let commentForm = document.getElementById('comment-form');
+  let commentInput = document.getElementById('comment-input');
+
+  commentForm.addEventListener('submit', displayComment);
+  
+  function displayComment(submit) {
+    submit.preventDefault();
+        const paragraphTag = document.createElement("p");
+        paragraphTag.innerText = commentInput.value;
+        commentList.appendChild(paragraphTag);
   }
 
 })
