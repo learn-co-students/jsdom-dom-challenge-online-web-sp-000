@@ -1,101 +1,81 @@
-//not my code
 document.addEventListener("DOMContentLoaded", function() {
-    startTimer()
+  
+  //timer functionality -------------------------------------------------------
 
-    let counter = document.getElementById("counter");
-    let counterValue = counter.innerText;
-    const pause = document.getElementById("pause");
-    const plus = document.getElementById("plus");
-    const minus = document.getElementById("minus");
-    const heart = document.getElementById("heart");
-    const likesList = document.querySelector("ul.likes");
-    let submitComment = document.getElementById("comment-form");
-    let commentInput = document.getElementById("comment-input");
-    let commentsList = document.getElementById("list");
-    let numberOfLikes = 0;
-    var tracker;
-    plus.disabled = false;
-    minus.disabled = false;
-    heart.disabled = false;
-    submit.disabled = false;
-    
-    function startCounter() {
-        tracker = setInterval(increaseCount, 1000);
-    };
-    
-    function increaseCount() {
-        if (parseFloat(counterValue) > -100000) {
-            counterValue++;
-            counter.innerText = String(counterValue);
-        }
-    };
+  startTimer()
 
-    function startTimer() {
-        setTimeout(startCounter, 0);
-    };
+  let counter = document.getElementById("counter");
+  let counterValue = counter.innerHTML
+  const pause = document.getElementById("pause");
+  let tracker
 
-    function stopTimer() {
-        clearInterval(tracker);
-    };
+  function startTimer() {
+      setTimeout(startCounter, 0);
+  };
+  
+  function startCounter() {
+    tracker = setInterval(increaseCount, 1000);
+  };
 
-    function createComment(submit) {
-        submit.preventDefault();
-        const newComment = document.createElement("p");
-        newComment.innerText = commentInput.value;
-        commentsList.appendChild(newComment);
+  function increaseCount() {
+    counterValue++;
+    counter.innerText = String(counterValue);
+  };
+
+  function pauseTimer() {
+    clearInterval(tracker);
+  };
+
+  pause.addEventListener('click', function() {
+    if (pause.innerText === 'pause') {
+      pauseTimer();
+      pause.innerText = 'resume';
+    } else {
+      startCounter()
+      pause.innerText = 'pause';
     }
+  })
 
-    function likeMessage() {
-        if (numberOfLikes === 1) {
-          return `${counterValue} - 1 Likes ❤️`;
-        } else {
-          return `${counterValue} - ${numberOfLikes} Likes ❤️`;
-        }
-      }
+  // increment/decrement counter functonality --------------------------------
 
-    pause.addEventListener("click", function() {
-        if (pause.innerText === "pause") {
-          stopTimer();
-          plus.disabled = true;
-          minus.disabled = true;
-          heart.disabled = true;
-          submit.disabled = true;
-          pause.innerText = "resume";
-        } else {
-          startTimer();
-          plus.disabled = false;
-          minus.disabled = false;
-          heart.disabled = false;
-          submit.disabled = false;
-          pause.innerText = "pause";
-        }
-      });
+  let plusButton = document.getElementById('plus')
+  let minusButton = document.getElementById('minus')
 
-      plus.addEventListener("click", function(){
-        counterValue++
-        counter.innerText = String(counterValue)
-      });
+  plusButton.addEventListener('click', function() {
+    counterValue++;
+    counter.innerText = String(counterValue);
+  })
 
-      minus.addEventListener("click", function(){
-        counterValue--
-        counter.innerText = String(counterValue)
-      });
-     
-      heart.addEventListener("click", function() {
-        let li = document.getElementById(`${counterValue}`);
-        if (li) {
-          numberOfLikes++;
-          li.innerText = likeMessage();
-        } else {
-          numberOfLikes = 1;
-          li = document.createElement("li");
-          li.innerText = likeMessage();
-          li.id = counterValue;
-          likesList.appendChild(li);
-        }
-      });
+  minusButton.addEventListener('click', function() {
+    counterValue--;
+    counter.innerText = String(counterValue);
+  })
 
-      submitComment.addEventListener('submit', createComment);
+  // heart button functionality ---------------------------------------
 
+  let heartButton = document.getElementById('heart')
+  let heartList = document.getElementsByClassName('likes')
+  let numberOfLikes = 0
 
-});
+  heartButton.addEventListener('click', function() {
+    let likedNumber = document.getElementById(`${counterValue}`)
+    if (likedNumber) {
+      numberOfLikes++;
+      likedNumber.innerText = likedNumberTracker();
+    } else {
+      let li = document.createElement('li');
+      li.innerText = likedNumberTracker();
+      li.id = counterValue;
+      heartList.appendChild(li);
+    };
+  })
+
+  function likedNumberTracker() {
+    if (numberOfLikes === 1) {
+      return `${counterValue} - 1 Like ❤️`;
+    } else {
+      return `${counterValue} - ${numberOfLikes} Likes ❤️`;
+    }
+  }
+
+})
