@@ -14,9 +14,11 @@ nIntervalId = setInterval(startCounter, 1000);
 
 plus.addEventListener('click', () => {counter.innerHTML++});
 minus.addEventListener('click', () => {counter.innerHTML--});
-// like.addEventListener('click', numberLikes)
-// submit.addEventListener('click', )
+like.addEventListener('click', numberLikes)
+
+submit.addEventListener('click', addComment)
 })
+
 
 function startCounter(){
     counter.innerText++
@@ -43,10 +45,22 @@ function disableButtons(){
     pause.innerHTML = 'resume'
 
 }
-// function numberLikes(){
-//     let counterN = counter.innerHTML;
-// const likesCount = document.getElementsByClassName('likes')[0];
-// }
+function numberLikes(){
+    let counterN = counter.innerHTML;
+const likesCount = document.getElementsByClassName('likes')[0];
+
+
+}
 
 // comment div is a list, class is comments
 // comment-form is the form id
+function addComment(e){
+    e.preventDefault()
+    const uComments = document.getElementById('list');
+    const allComments = document.getElementById('comment-form');
+    
+    let commentInput = document.getElementById("comment-input")["value"];
+    uComments.innerText = commentInput;
+    
+    document.forms["comment-form"].reset();
+  }
