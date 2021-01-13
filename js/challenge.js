@@ -46,9 +46,22 @@ function disableButtons(){
 
 }
 function numberLikes(){
-    let counterN = counter.innerHTML;
+    let counterNumber = counter.innerHTML;
 const likesCount = document.getElementsByClassName('likes')[0];
-
+const likeLi = (document.getElementById(counterNumber))
+if (likeLi) {
+    // console.log('test')
+    let span = likeLi.querySelector('span')
+    console.log(span)
+    // let newNumber = parseInt(likeLi, base) how do I define the base?? What number do I use there?
+    span.innerText = newNumber
+}
+else {
+  let listItem = document.createElement('li')  
+    listItem.innerHTML = `${counterNumber} has been liked this many times <span>1</span>`
+    listItem.id = counterNumber
+    likesCount.appendChild(listItem)
+}
 
 }
 
