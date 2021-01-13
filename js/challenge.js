@@ -5,7 +5,7 @@ let buttons = document.getElementsByTagName('button');
 const pause = document.getElementById('pause');
 const plus = document.getElementById('plus');
 const minus = document.getElementById('minus');
-const like = document.getElementById('heart');
+const likes = document.getElementById('heart');
 const submit = document.getElementById('submit');
 
 
@@ -14,7 +14,7 @@ nIntervalId = setInterval(startCounter, 1000);
 
 plus.addEventListener('click', () => {counter.innerHTML++});
 minus.addEventListener('click', () => {counter.innerHTML--});
-like.addEventListener('click', numberLikes)
+likes.addEventListener('click', numberLikes)
 
 submit.addEventListener('click', addComment)
 })
@@ -50,11 +50,13 @@ function numberLikes(){
 const likesCount = document.getElementsByClassName('likes')[0];
 const likeLi = (document.getElementById(counterNumber))
 if (likeLi) {
-    // console.log('test')
-    let span = likeLi.querySelector('span')
-    console.log(span)
-    // let newNumber = parseInt(likeLi, base) how do I define the base?? What number do I use there?
-    span.innerText = newNumber
+    
+    let span = likeLi.querySelector('span') 
+    
+    let newNumber = parseInt(span.innerText, 10) 
+    span.innerText = newNumber + 1
+     
+    console.log(newNumber);
 }
 else {
   let listItem = document.createElement('li')  
