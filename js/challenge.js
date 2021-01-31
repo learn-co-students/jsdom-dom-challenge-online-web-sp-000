@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let minus = document.getElementById('minus');
   let plus = document.getElementById('plus');
   let heart = document.getElementById('heart');
-  let pause = document.getElementById('pauser');
+  let pause = document.getElementById('pause');
 
   // timer increment every second
   let intervalID = 0;
@@ -23,12 +23,28 @@ document.addEventListener("DOMContentLoaded", () => {
     counter.textContent = parseInt(counter.textContent) -1;
   }
 
-  
+  plus.addEventListener('click', plusOne);
+  minus.addEventListener('click', minusOne);
+
   // I can 'like' an individual number of the counter. 
   // I see count of the number of 'likes' associated with that number
+  heart.addEventListener('click', addLike);
 
+  function addLike(){
+    
+  }
   // pause the counter:
     // 1. pause the counter
+    pause.addEventListener('click', () => {
+      pauseTimer();
+    })
+
+    function pauseTimer(){
+      let buttons = [minus, plus, heart];
+      buttons.forEach(button => toggleDisabled(button));
+    }
+
+
     // 2. disable all buttons except the pause button
     // 3. the pause button should then show the text "resume."
 
