@@ -14,11 +14,9 @@ document.addEventListener("DOMContentLoaded", function(){
   let interval = setInterval(increment, 1000);
 
   //add to count - why twice?
-    function add()
     const plus = document.getElementById('plus');
     plus.addEventListener("click", function(){
       counterIncrement()
-    });
 
   //subtract from count
     const minus = document.getElementById('minus');
