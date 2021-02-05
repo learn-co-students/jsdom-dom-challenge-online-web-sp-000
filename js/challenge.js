@@ -11,38 +11,34 @@ document.addEventListener("DOMContentLoaded", function(){
   function counterIncrement(){i++; counter.innerHTML = i};
   function counterDecrement(){i--; counter.innerHTML = i};
 
-  let interval = setInterval(increment, 1000);
+  //counter
+    let interval = setInterval(increment, 1000);
 
-  //add to count - why twice?
+  //add to count
     const plus = document.getElementById('plus');
+
     plus.addEventListener("click", function(){
       counterIncrement()
+    });
 
   //subtract from count
     const minus = document.getElementById('minus');
+
     minus.addEventListener("click", function(){
       counterDecrement()
     });
 
   // add likes
-  const heart = document.getElementById('heart');
-  const ul = document.querySelector('ul.likes');
-  let clicks = 0;
+    const heart = document.getElementById('heart');
+    const ul = document.querySelector('ul.likes');
 
-  heart.addEventListener("click", function(){
-    //for every second interval
-    clicks++
-
-    //create li, append to likes
-    let createLi = document.createElement("li");
-    let li = ul.appendChild(createLi);
-      if (clicks === 1){
-        li.innerHTML = (`${counter.innerHTML} has been liked ${clicks} time`);
-      } else {
-        li.innerHTML = (`${counter.innerHTML} has been liked ${clicks} times`);
-      };
-
-  });
+    heart.addEventListener("click", function(){
+      const currentNum = parseInt(counter.innerHTML);
+      const allNumAlreadyLiked = Array.from(ul.children);
+      const createLi = document.createElement('li');
+      createLi.innerHTML = `${currentNum} has been liked`;
+      ul.append(createLi);
+    });
 
   // pause
     let submit = document.getElementById('submit');
@@ -78,6 +74,5 @@ document.addEventListener("DOMContentLoaded", function(){
       let p = list.appendChild(createP);
       p.innerHTML = document.getElementById("comment-input").value;
     });
-
 
 });
