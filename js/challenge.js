@@ -2,11 +2,12 @@ document.addEventListener( "DOMContentLoaded", function () {
   counter()
 } );
 
+const counter = document.getElementById('counter'); 
 
-const counter = delay =>
-  setTimeout(() => {
-    console.log(delay);
-    counter(delay + 1);
-  }, delay * 1000);
-counter(1);
+function incrementEverySecond() {
+    counter.innerText++;
 }
+
+let timerThing = window.setInterval(incrementEverySecond, 1*1000);
+
+
