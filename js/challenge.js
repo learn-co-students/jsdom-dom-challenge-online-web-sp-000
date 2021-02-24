@@ -1,58 +1,60 @@
-let seconds = 0;
-let clicks = 0;
-let temp = null;
-let el = document.getElementById('counter');
-let pause = document.getElementById('pause');
-let minus = document.getElementById('minus');
-let plus = document.getElementById('plus');
-let heart = document.getElementById('heart');
-let ul = document.querySelector('ul');
-let likes = document.getElementById('likes');
-pause == true;
-pause.addEventListener('click', function () {
-	pause = false;
-});
+var i =-1;
+var j = 0;
+//setting the variables
+var interval = setInterval( increment, 1000);
 
-function incrementSeconds() {
-    seconds += 1;
-    if (!pause) {
-        clearInterval(counter);
-        return; 
-    }
-    el.innerText = seconds;
-// the pause as itended does not do what it is supposed to do
+function increment(){
+    i++;
+    document.querySelector('h1#counter').textContent = i;
+    j = 0;
 }
-minus.addEventListener('click', function () {
-    seconds -= 1;
-    el.innerText = seconds;
-});
-plus.addEventListener('click', function () {
-    seconds += 1;
-    el.innerText = seconds;
-});
-/*heart.addEventListener('click', function () {
-    let hello = document.createElement('li');
-    likes.dataset.value++
-    hello.innerText = el.innerText + " " + "was liked" + " " + likes.dataset.value + " " + "times!";
-    ul.appendChild(hello);
-// this way the incremented values stay
-});*/
-heart.addEventListener('click', function () {
-    let hello = document.createElement('li');
-    if (temp == el.innerText){
-        clicks++;
-        console.log(temp);
-        hello.innerText = el.innerText + " " + "was liked" + " " + clicks + " " + "times!";
-    } else {
-        clicks = 1;
-        hello.innerText = el.innerText + " " + "was liked" + " " + clicks + " " + "times!";
-    }
-    temp = el.innerText;
-    
-    
-   
-    ul.appendChild(hello);
+increment();
 
-// this way it doesn't increment the amount of likes but creates new 'li' for each
+document.getElementById("minus").addEventListener("click", function(){
+  i--;
+  document.querySelector('h1#counter').textContent = i;
 });
-let cancel = setInterval(incrementSeconds, 1000);
+
+document.getElementById("plus").addEventListener("click", function(){
+  i++;
+  document.querySelector('h1#counter').textContent = i;
+});
+
+document.getElementById("heart").addEventListener("click", function(){
+  j++;
+  //on click, we are increasing amount of likes
+  var li = document.createElement("li");
+  //we are creating a new li on a DOCUMENT
+  var node = document.createTextNode(i + " has been liked " + j + " time(s).")
+  //we are creating a new textNode on a DOCUMENT
+  var likes = document.querySelector('#likes')
+  //we are getting the likes DIV
+  var lastLike = document.querySelector('#likes').lastChild
+  //getting the last child of #like
+  li.appendChild(node);
+  //appending the last textNode to li (still nowhere attached)
+  if(j>1){
+   lastLike.replaceWith(li)
+   //since it already exists, replace it
+  } else {
+    likes.appendChild(li);
+    //since it is the first, create a new textNode
+  }
+});
+document.getElementById("pause").addEventListener("click", function(){
+    if(document.querySelector('#pause').innerText == "pause") {
+      clearInterval(interval)
+      document.querySelector('#pause').innerText = "resume"
+      document.getElementById("minus").disabled = true;
+      document.getElementById("plus").disabled = true;
+      document.getElementById("heart").disabled = true;
+      document.getElementById("submit").disabled = true;
+    } else {
+      interval = setInterval( increment, 1000);
+      document.querySelector('#pause').innerText = "pause"
+      document.getElementById("minus").disabled = false;
+      document.getElementById("plus").disabled = false;
+      document.getElementById("heart").disabled = false;
+      document.getElementById("submit").disabled = false;
+    }
+  });
