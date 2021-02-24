@@ -58,3 +58,13 @@ document.getElementById("pause").addEventListener("click", function(){
       document.getElementById("submit").disabled = false;
     }
   });
+  document.getElementById("submit").addEventListener("click", function(event){
+    event.preventDefault();
+    var comment = document.querySelector('input#comment-input').value
+    var commentsList = document.querySelector('.comments')
+    var p = document.createElement("p");
+    var node = document.createTextNode(comment)
+    p.appendChild(node);
+    commentsList.appendChild(p);
+    document.querySelector('input#comment-input').value = ''
+  });
