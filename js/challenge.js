@@ -73,10 +73,11 @@ function updateLike() {
 }
 
 /* As a user, I can pause the counter, which should:
-  - Pause the counter
+  - Pause the counter and change the pause button text to "resume"
   - Disable all buttons except the pause button
   - Display the text "resume" on the pause button
-When 'resume' is clicked, it should restart the counter, re-enable the buttons, and change the button text back to "pause". */
+  - When 'resume' is clicked, it should restart the counter, re-enable the buttons, and change the pause button text back to "pause". 
+*/
 
 // Grab the pause button and all buttons in the window
 const pauseButton = document.getElementById("pause");
@@ -101,3 +102,33 @@ function pauseCounter() {
     }
   }  
 }
+
+// As a user, I can leave comments on my gameplay.
+
+// grab the comment form and the div to display the comments
+const commentForm = document.getElementById('comment-form');
+const commentsList = document.getElementById('list');
+
+// attach eventListener to commentForm
+commentForm.addEventListener("submit", addComment);
+
+function addComment(event) {
+  // prevent the form from submitting
+  event.preventDefault();
+
+  let comment = document.getElementById("comment-input");
+
+  let newComment = document.createElement("p");
+  newComment.innerText = comment.value;
+  commentsList.appendChild(newComment);
+
+
+  // Reset the input field for comments
+  event.target.reset();
+
+}
+ 
+
+
+
+
