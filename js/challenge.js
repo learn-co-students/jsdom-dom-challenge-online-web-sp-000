@@ -1,12 +1,12 @@
 // As a user, I should see the timer increment every second once the page has loaded.
-document.addEventListener("DOMContentLoaded", setCounter);
+document.addEventListener("DOMContentLoaded", startCounter);
 
 // grab the counter element in order to manipulate it
 const counter = document.getElementById("counter");
 let counterNumber = parseInt(counter.innerText, 10);
 let seconds;
 
-function setCounter () {
+function startCounter () {
   seconds = setInterval(increaseCounter, 1000);
   increaseCounter();
 }
@@ -92,7 +92,12 @@ function pauseCounter() {
         allButtons[i].disabled = true;
       }
     }
-  }
+  } else if (pauseButton.innerText == 'resume') {
+    startCounter();
+    pauseButton.innerText = 'pause';
 
-  
+    for (let i = 0; i < allButtons.length; i++) {
+      allButtons[i].disabled = false;
+    }
+  }  
 }
