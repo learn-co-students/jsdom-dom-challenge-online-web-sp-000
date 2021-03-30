@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 timer = duration;
             }
         }, 1000);
+        buttonElement.addEventListener('click', function (event) {
+            alert('continue when ready');
+          });
     }
     
     window.onload = function () {
@@ -33,3 +36,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         startTimer(fiveMinutes, display);
     };
     });
+
+    let buttonElement = document.getElementById('pause');
