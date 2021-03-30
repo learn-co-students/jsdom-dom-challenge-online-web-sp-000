@@ -10,7 +10,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
     function startTimer(duration, display) {
-        var timer = duration, minutes, seconds;
+        var timer = duration, seconds;
         setInterval(function () {
             minutes = parseInt(timer / 1, 0)
             seconds = parseInt(timer % 60, 10);
