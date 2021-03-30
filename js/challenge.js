@@ -6,7 +6,6 @@
 //    }
 //  }
 
-
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
     function startTimer(duration, display) {
@@ -18,9 +17,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
             display.textContent =  seconds;
-
+            if (parseInt(display.innerHTML)==0) {
+                clearInterval();
+            }
             if (--timer < 0) {
-                timer = duration;
+                timer = duration
             }
         }, 1000);
         buttonElement.addEventListener('click', function (event) {
@@ -29,9 +30,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     
     window.onload = function () {
-        var fiveMinutes = 50 * .5,
+        var fiveMinutes = 20 * .5,
         display = document.getElementById("counter");
         display.style.color = "green";
+        display.style.backgroundColor = "yellow"
 
         startTimer(fiveMinutes, display);
     };
