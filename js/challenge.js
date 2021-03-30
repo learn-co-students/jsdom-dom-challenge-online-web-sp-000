@@ -1,42 +1,33 @@
-// function wait(ms){
-//     var start = new Date().getTime();
-//     var end = start;
-//     while(end < start + ms) {
-//       end = new Date().getTime();
-//    }
-//  }
-
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
     function startTimer(duration, display) {
-        var timer = duration, seconds;
+        var timer = duration
         setInterval(function () {
-            minutes = parseInt(timer / 1, 0)
-            seconds = parseInt(timer % 60, 10);
-    
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            display.textContent =  seconds;
-            if (parseInt(display.innerHTML)==0) {
-                clearInterval();
-            }
-            if (--timer < 0) {
-                timer = duration
-            }
+            timer +=1;
+            display.textContent = timer;
         }, 1000);
         buttonElement.addEventListener('click', function (event) {
-            alert('continue when ready');
+            alert('Continue When Ready');
+          });
+          plusButtonElement.addEventListener('click', function (event) {
+            timer+=5;
+            startTimer(timer);
+          });
+          minusButtonElement.addEventListener('click', function (event) {
+            timer-=5;
+            startTimer(timer);
+
           });
     }
     
     window.onload = function () {
-        var fiveMinutes = 20 * .5,
         display = document.getElementById("counter");
         display.style.color = "green";
         display.style.backgroundColor = "yellow"
 
-        startTimer(fiveMinutes, display);
+        startTimer(0, display);
     };
     });
-
     let buttonElement = document.getElementById('pause');
+    let plusButtonElement = document.getElementById('plus');
+    let minusButtonElement = document.getElementById('minus');
