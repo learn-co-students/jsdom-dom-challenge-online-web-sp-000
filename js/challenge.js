@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             alert('Continue When Ready');
           });
           plusButtonElement.addEventListener('click', function (event) {
-            timer+=5;
+            timer+=1;
             startTimer(timer);
           });
           minusButtonElement.addEventListener('click', function (event) {
