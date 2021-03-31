@@ -1,24 +1,26 @@
 document.addEventListener("DOMContentLoaded", function() {
-    countSeconds();
+
     manualIncrease();
     manualDecrease();
     pause();
-    // like();
+    like();
     addComment();
 })
+
+let isPaused = false;
+
+let likedNumbers = {};
 
 let counterBox = document.querySelector('#counter');
 
 let counter = 0;
 
-function countSeconds() { 
-
-    setInterval(function() {
-        counter += 1;
-        counterBox.innerText = counter;
-    }, 1000);
+function increment() {
+    counter += 1;
+    counterBox.innerText = counter;
 }
 
+let countSeconds = setInterval(increment, 1000);
 
 function manualIncrease() {
     let button = document.querySelector('button#plus');
@@ -43,9 +45,16 @@ function pause() {
     let button = document.querySelector('button#pause');
 
     button.addEventListener('click', event => {
-        clearInterval();
-        counterBox.innerText = counter;
-
+        if (!isPaused) {
+            isPaused = true;
+            clearInterval(countSeconds);
+            counterBox.innerText = counter;
+            button.innerText = 'resume';
+        } else {
+            isPaused = false;
+            countSeconds = setInterval(increment, 1000);
+            button.innerText = 'pause';
+        }
     })
 }
 
@@ -53,14 +62,28 @@ function like() {
     let button = document.querySelector('button#heart');
 
     button.addEventListener('click', event => {
-        const newLikeNum = counter.innerText;
-        const likeList = document.createElement('ul');
-        const newLikeLine = document.createElement('li');
+        const newLikeNum = counterBox.innerText;
+        const likeList = document.querySelector('.likes');
 
-        // ideal output on each line
-        // `${newLikeNum} has been liked ${timesLiked} time(s)`
+        if (!likedNumbers[newLikeNum]) {
+            likedNumbers[newLikeNum] = 1;
+        } else {
+            likedNumbers[newLikeNum] += 1;
+        }
 
-        likeList.append(newLikeLine);
+        if (!document.getElementById(`${newLikeNum}`)) {
+            const newLikeLine = document.createElement('li');
+            newLikeLine.id = newLikeNum;
+            likeList.append(newLikeLine);
+            newLikeLine.innerText = `${newLikeNum} has been liked ${likedNumbers[newLikeNum]} time(s)`
+        } else {
+            const newLikeLine = document.getElementById(`${newLikeNum}`)
+            newLikeLine.innerText = `${newLikeNum} has been liked ${likedNumbers[newLikeNum]} time(s)`
+        }
+
+
+
+
     });
 }
 
