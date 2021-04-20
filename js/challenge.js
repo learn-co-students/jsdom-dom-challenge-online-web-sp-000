@@ -90,7 +90,7 @@ pause_button.innerText = "pause"
 
 
 
-document.getElementById("submit").addEventListener("submit", formSubmit );
+document.getElementById("comment-form").addEventListener("submit", formSubmit );
 
 function formSubmit(event) {
     event.preventDefault();
@@ -98,10 +98,28 @@ function formSubmit(event) {
     let li = document.createElement("li");
     let list_div = document.getElementById("list");
     li.innerText += document.getElementById("comment-input").value;
+    ul.style.listStyleType = "none";
     ul.appendChild(li);
     list_div.appendChild(ul);
-    console.log(document.getElementById("comment-input").value);
+}
 
+heart_button.addEventListener("click", likeANumber);
+
+function likeANumber(event) { 
+    let ul = document.getElementsByClassName("likes")[0]; 
+    let li = document.createElement("li");
+    li.id = `num-` + counterElement.innerText;
+    let target_li = document.getElementById(`num-` + counterElement.innerText);
+    if (target_li) { 
+        target_li.innerHTML = `${counterElement.innerText} has been liked ` + (parseInt(target_li.innerText.split(" ")[4]) + 1) + ` times`
+    }
+    else { 
+        li = document.createElement("li");
+        li.id = `num-` + counterElement.innerText;
+        li.innerText = `${counterElement.innerText} has been liked 1 time`
+        ul.appendChild(li);
+
+    }
 }
 
 })
