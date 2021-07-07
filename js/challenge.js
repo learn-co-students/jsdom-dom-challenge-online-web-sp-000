@@ -1,57 +1,65 @@
 document.addEventListener("DOMContentLoaded", function() {
     const counter = document.getElementById("counter");
     const pause = document.getElementById("pause");
-    const likeButton = document.getElementById("heart");
-    const plusButton = document.getElementById("plus");
-    const minusButton = document.getElementById("minus");
-    const submitButton = document.getElementById("submit");
-    const commentList = document.getElementById("list");
-    const commentInput = document.getElementById("comment-input");
+    const like = document.getElementById("heart");
+    const plus = document.getElementById("plus");
+    const minus = document.getElementById("minus");
+    const submit = document.getElementById("submit");
     const commentForm = document.getElementById("comment-form");
     const likes = document.getElementsByClassName("likes")[0];
-    // const likesArray = [];
+    
     let counterValue = setInterval(counterIncrement, 1000);
-    let gamePlay = true;
+    let start = true;
 
     function counterIncrement() {
-        if (gamePlay === true) {
+        if (start === true) {
             counter.innerHTML++ 
         }
     };
 
     pause.addEventListener("click", function() {
-        if (gamePlay === true) {
-            gamePlay = false;
+        if (start === true) {
+            start = false;
             pause.innerHTML = "resume";
-            likeButton.disabled = true;
-            minusButton.disabled = true;
-            plusButton.disabled = true;
-            submitButton.disabled = true;
+            like.disabled = true;
+            minus.disabled = true;
+            plus.disabled = true;
+            submit.disabled = true;
             commentForm.disabled = true;
         }
           else {
-            gamePlay = true;
+            start = true;
             pause.innerHTML = "pause"
-            likeButton.disabled = false;
-            minusButton.disabled = false;
-            plusButton.disabled = false;
-            submitButton.disabled = false;
+            like.disabled = false;
+            minus.disabled = false;
+            plus.disabled = false;
+            submit.disabled = false;
             commentForm.disabled = false;
         };
     });
 
-    plusButton.addEventListener("click", function() {
+    plus.addEventListener("click", function() {
         counter.innerHTML++
     });
 
-    minusButton.addEventListener("click", function() {
+    minus.addEventListener("click", function() {
         counter.innerHTML--
     });
 
-    likeButton.addEventListener("click", function() {
+    like.addEventListener("click", function() {
         const likesList = document.createElement("li");
         let likesArray = document.createTextNode(`${counter.innerHTML} has been liked.`)
         likesList.appendChild(likesArray);
         likes.appendChild(likesList);
+    });
+
+    commentForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const newComment = document.getElementById("comment-input").value
+        const list = document.getElementById("list")
+        const comment = document.createElement("p")
+        comment.innerText = newComment
+        list.appendChild(comment)
+        commentForm.reset();
     });
 });
